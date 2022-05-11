@@ -7,4 +7,6 @@ export type POINT = {
 export type Point = {
   name: string;
   id: string;
+  x?: number;
+  y?: number;
 }
