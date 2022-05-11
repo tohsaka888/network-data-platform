@@ -2,11 +2,12 @@ import { Layout, Tag } from "antd";
 import React, { useCallback, useEffect, useRef } from "react";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
+import { drawLine } from "../d3_components/line";
 import {
   createPoint,
   createPointInfo,
   createRect,
-  createRectInfo,
+  // createRectInfo,
 } from "../d3_components/point";
 import { D3CANVAS } from "../d3_components/type";
 import {
@@ -26,6 +27,8 @@ function DataCanvas() {
   const { Content } = Layout;
   const canvasRef = useRef<HTMLDivElement>();
   const containerRef = useRef<D3CANVAS>();
+  const containerWidth = window.innerWidth - 248;
+  const containerHeight = window.innerHeight - 64 - 64 - 40 - 16 - 54;
   const canvasDragEvent = useCallback(function (
     this: SVGSVGElement,
     event: any
@@ -59,16 +62,22 @@ function DataCanvas() {
     let initX = 30;
     let initY = 30;
     fields.forEach((item) => {
-      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createRect(
+        containerRef.current,
+        initX + "%",
+        initY + "%",
+        "rect-purple",
+        item
+      );
       // if (item.name.length > 4) {
       //   item.name = item.name.slice(0, 3) + "...";
       // }
-      createRectInfo(
-        containerRef.current,
-        initX + 2 + "%",
-        initY + 2 + "%",
-        item.name
-      );
+      // createRectInfo(
+      //   containerRef.current,
+      //   initX + 2 + "%",
+      //   initY + 2 + "%",
+      //   item.name
+      // );
       initX += 6;
     });
   }, []);
@@ -77,13 +86,19 @@ function DataCanvas() {
     let initX = x;
     let initY = y;
     codeTables.forEach((item) => {
-      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
-      createRectInfo(
+      createRect(
         containerRef.current,
-        initX + 2 + "%",
-        initY + 2 + "%",
-        item.name
+        initX + "%",
+        initY + "%",
+        "rect-green",
+        item
       );
+      // createRectInfo(
+      //   containerRef.current,
+      //   initX + 2 + "%",
+      //   initY + 2 + "%",
+      //   item.name
+      // );
       initX += 6;
     });
   }, []);
@@ -92,13 +107,19 @@ function DataCanvas() {
     let initX = 30;
     let initY = 5;
     terms.forEach((item) => {
-      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
-      createRectInfo(
+      createRect(
         containerRef.current,
-        initX + 2 + "%",
-        initY + 2 + "%",
-        item.name
+        initX + "%",
+        initY + "%",
+        "rect-blue",
+        item
       );
+      // createRectInfo(
+      //   containerRef.current,
+      //   initX + 2 + "%",
+      //   initY + 2 + "%",
+      //   item.name
+      // );
       initX += 6;
     });
     createCodeTables(initX, initY);
@@ -108,13 +129,19 @@ function DataCanvas() {
     let initX = x;
     let initY = y;
     modelProperties.forEach((item) => {
-      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
-      createRectInfo(
+      createRect(
         containerRef.current,
-        initX + 2 + "%",
-        initY + 2 + "%",
-        item.name
+        initX + "%",
+        initY + "%",
+        "rect-green",
+        item
       );
+      // createRectInfo(
+      //   containerRef.current,
+      //   initX + 2 + "%",
+      //   initY + 2 + "%",
+      //   item.name
+      // );
       initX += 6;
     });
   }, []);
@@ -123,13 +150,19 @@ function DataCanvas() {
     let initX = 30;
     let initY = 55;
     dataFields.forEach((item) => {
-      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
-      createRectInfo(
+      createRect(
         containerRef.current,
-        initX + 2 + "%",
-        initY + 2 + "%",
-        item.name
+        initX + "%",
+        initY + "%",
+        "rect-blue",
+        item
       );
+      // createRectInfo(
+      //   containerRef.current,
+      //   initX + 2 + "%",
+      //   initY + 2 + "%",
+      //   item.name
+      // );
       initX += 6;
     });
     createModalProperties(initX, initY);
@@ -187,6 +220,14 @@ function DataCanvas() {
     createData,
     createTerms,
   ]);
+
+  useEffect(() => {
+    drawLine(
+      containerRef.current,
+      { x: 0.2 * containerWidth, y: 0.5 * containerHeight, pointId: "0" },
+      [{ x: 0, y: 0, pointId: "1" }]
+    );
+  }, [containerHeight, containerWidth]);
   return (
     <Content style={{ padding: "0px 24px" }}>
       <SelectArea />
