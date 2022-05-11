@@ -1,8 +1,8 @@
-import { D3CANVAS, POINT } from "./type"
+import { D3CANVAS, Point, POINT } from "./type"
 // import * as d3 from 'd3'
 
 
-const drawLine = (container: D3CANVAS, startPoint: POINT, endPoints: POINT[]) => {
+const drawLine = (container: D3CANVAS, startPoint: POINT, endPoints: Point[]) => {
   endPoints.forEach(item => {
     container?.insert('path', ':first-child')
       .attr('d', 'M ' + startPoint.x + ' ' + startPoint.y + ' L ' + item.x + ' ' + item.y)
