@@ -6,7 +6,7 @@ const createPoint = (container: D3CANVAS, x: string | number, y: string | number
     ?.append('circle')
     .attr('cx', x)
     .attr('cy', y)
-    .attr('r', 30)
+    .attr('r', 20)
     .attr('fill', color)
 }
 
@@ -16,7 +16,7 @@ const createRect = (container: D3CANVAS, x: string | number, y: string | number,
     .attr('x', x)
     .attr('y', y)
     .attr('width', '24px')
-    .attr('height', '246px')
+    .attr('height', '160px')
   rectContainer
     ?.append('xhtml:div')
     .attr('xmlns', 'http://www.w3.org/1999/xhtml')
@@ -29,8 +29,8 @@ const createPointInfo = (container: D3CANVAS, x: string | number, y: string | nu
     ?.append('text')
     .attr('x', x)
     .attr('y', y)
-    .attr('font-size', '14px')
-    .attr('font-weight', 'bold')
+    .attr('font-size', '12px')
+    // .attr('font-weight', 'bold')
     .style('font-family', 'PingFang SC')
     .attr('text-anchor', 'middle')
     .attr('alignment-baseline', 'central')
