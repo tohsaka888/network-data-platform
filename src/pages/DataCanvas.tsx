@@ -54,9 +54,11 @@ function DataCanvas() {
         initY + "%",
         item.name
       );
+      item.x = initX / 100 * containerWidth
+      item.y = initY / 100 * containerHeight
       initY += 15;
     });
-  }, []);
+  }, [containerHeight, containerWidth]);
 
   const createFields = useCallback(() => {
     let initX = 30;
@@ -225,7 +227,7 @@ function DataCanvas() {
     drawLine(
       containerRef.current,
       { x: 0.2 * containerWidth, y: 0.5 * containerHeight, pointId: "0" },
-      [{ x: 0, y: 0, pointId: "1" }]
+      defaultPoint
     );
   }, [containerHeight, containerWidth]);
   return (
