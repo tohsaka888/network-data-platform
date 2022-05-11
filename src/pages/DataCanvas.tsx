@@ -2,7 +2,24 @@ import { Layout, Tag } from "antd";
 import React, { useCallback, useEffect, useRef } from "react";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
+import {
+  createPoint,
+  createPointInfo,
+  createRect,
+  createRectInfo,
+} from "../d3_components/point";
 import { D3CANVAS } from "../d3_components/type";
+import {
+  centerPoint,
+  codeTables,
+  data,
+  dataFields,
+  defaultPoint,
+  fields,
+  modelProperties,
+  models,
+  terms,
+} from "../mock/fake_data";
 import { CanvasArea, MainCanvas, TypeArea } from "./DataCancas.style";
 
 function DataCanvas() {
@@ -22,11 +39,154 @@ function DataCanvas() {
     );
   },
   []);
+
+  const createDefaultPoints = useCallback(() => {
+    let initX = 5;
+    let initY = 5;
+    defaultPoint.forEach((item) => {
+      createPoint(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createPointInfo(
+        containerRef.current,
+        initX + "%",
+        initY + "%",
+        item.name
+      );
+      initY += 15;
+    });
+  }, []);
+
+  const createFields = useCallback(() => {
+    let initX = 30;
+    let initY = 30;
+    fields.forEach((item) => {
+      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      // if (item.name.length > 4) {
+      //   item.name = item.name.slice(0, 3) + "...";
+      // }
+      createRectInfo(
+        containerRef.current,
+        initX + 2 + "%",
+        initY + 2 + "%",
+        item.name
+      );
+      initX += 6;
+    });
+  }, []);
+
+  const createCodeTables = useCallback((x: number, y: number) => {
+    let initX = x;
+    let initY = y;
+    codeTables.forEach((item) => {
+      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createRectInfo(
+        containerRef.current,
+        initX + 2 + "%",
+        initY + 2 + "%",
+        item.name
+      );
+      initX += 6;
+    });
+  }, []);
+
+  const createTerms = useCallback(() => {
+    let initX = 30;
+    let initY = 5;
+    terms.forEach((item) => {
+      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createRectInfo(
+        containerRef.current,
+        initX + 2 + "%",
+        initY + 2 + "%",
+        item.name
+      );
+      initX += 6;
+    });
+    createCodeTables(initX, initY);
+  }, [createCodeTables]);
+
+  const createModalProperties = useCallback((x: number, y: number) => {
+    let initX = x;
+    let initY = y;
+    modelProperties.forEach((item) => {
+      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createRectInfo(
+        containerRef.current,
+        initX + 2 + "%",
+        initY + 2 + "%",
+        item.name
+      );
+      initX += 6;
+    });
+  }, []);
+
+  const createDataFields = useCallback(() => {
+    let initX = 30;
+    let initY = 55;
+    dataFields.forEach((item) => {
+      createRect(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createRectInfo(
+        containerRef.current,
+        initX + 2 + "%",
+        initY + 2 + "%",
+        item.name
+      );
+      initX += 6;
+    });
+    createModalProperties(initX, initY);
+  }, [createModalProperties]);
+
+  const createModel = useCallback((x: number, y: number) => {
+    let initX = x;
+    let initY = y;
+    models.forEach((item) => {
+      createPoint(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createPointInfo(
+        containerRef.current,
+        initX + "%",
+        initY + "%",
+        item.name
+      );
+      initX += 6;
+    });
+  }, []);
+
+  const createData = useCallback(() => {
+    let initX = 32;
+    let initY = 85;
+    data.forEach((item) => {
+      createPoint(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createPointInfo(
+        containerRef.current,
+        initX + "%",
+        initY + "%",
+        item.name
+      );
+      initX += 6;
+    });
+    createModel(initX, initY);
+  }, [createModel]);
+
   useEffect(() => {
     if (canvasRef.current) {
       containerRef.current = createCanvas(canvasRef.current, canvasDragEvent);
     }
   }, [canvasDragEvent]);
+
+  useEffect(() => {
+    createPoint(containerRef.current, "20%", "50%", "#ED7D0C");
+    createPointInfo(containerRef.current, "20%", "50%", centerPoint.name);
+    createDefaultPoints();
+    createFields();
+    createTerms();
+    createDataFields();
+    createData();
+  }, [
+    createDataFields,
+    createDefaultPoints,
+    createFields,
+    createData,
+    createTerms,
+  ]);
   return (
     <Content style={{ padding: "0px 24px" }}>
       <SelectArea />
