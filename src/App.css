@@ -46,7 +46,7 @@
 }
 
 .rect-green {
-  height: 150px;
+  height: 100px;
   width: 24px;
   background-color: #c7e1cb;
   border: 1px solid #99be9f;
@@ -55,7 +55,7 @@
 }
 
 .rect-blue {
-  height: 150px;
+  height: 100px;
   width: 24px;
   background-color: #b2cdff;
   border: 1px solid #93b9fe;
@@ -64,7 +64,7 @@
 }
 
 .rect-purple {
-  height: 150px;
+  height: 100px;
   width: 24px;
   background-color: #d7d4ff;
   border: 1px solid #a6a0ff;
