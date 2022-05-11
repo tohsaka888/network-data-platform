@@ -4,3 +4,7 @@ export type MOVEPOINT = {
   y: number;
   pointId: string;
 }
+export type Point = {
+  name: string;
+  id: string;
+}
