@@ -1,8 +1,11 @@
-const centerPoint = {
-  name: '资产'
+import { Point } from "../d3_components/type"
+
+const centerPoint: Point = {
+  name: '资产',
+  id: '0'
 }
 
-const defaultPoint = [
+const defaultPoint: Point[] = [
   {
     name: '表',
     id: '0'
@@ -29,7 +32,7 @@ const defaultPoint = [
   }
 ]
 
-const fields = [
+const fields: Point[] = [
   {
     name: '男方姓名',
     id: '0'
@@ -64,7 +67,7 @@ const fields = [
   }
 ]
 
-const terms = [
+const terms: Point[] = [
   {
     name: '术语1',
     id: '0'
@@ -83,7 +86,7 @@ const terms = [
   }
 ]
 
-const dataFields = [
+const dataFields: Point[] = [
   {
     name: '数据字段1',
     id: '0'
@@ -102,7 +105,7 @@ const dataFields = [
   }
 ]
 
-const data = [
+const data: Point[] = [
   {
     name: '数据元1',
     id: '0'
@@ -115,7 +118,7 @@ const data = [
   }
 ]
 
-const codeTables = [
+const codeTables: Point[] = [
   {
     name: '代码表1',
     id: '0'
@@ -128,7 +131,7 @@ const codeTables = [
   }
 ]
 
-const models = [
+const models: Point[] = [
   {
     name: '模型1',
     id: '0'
@@ -141,7 +144,7 @@ const models = [
   }
 ]
 
-const modelProperties = [
+const modelProperties: Point[] = [
   {
     name: '模型属性1',
     id: '0'
