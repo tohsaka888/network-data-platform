@@ -11,7 +11,7 @@ function dragEnd(this: SVGSVGElement, event: any) {
 }
 
 const createCanvas = (canvas: HTMLDivElement, canvasDragEvent: (this: SVGSVGElement, event: any) => void): D3CANVAS => {
-  const svgContainer = d3.select(canvas).append('svg').style('width', '100%').style('height', '100%')
+  const svgContainer = d3.select(canvas).append('svg').style('width', '100%').style('height', '100%').attr('xmlns', 'http://www.w3.org/2000/svg');
   const container = svgContainer.append('g').attr('transform', 'translate(0, 0)')
 
   svgContainer.call(d3.drag<SVGSVGElement, unknown>().on('start', dragStart).on('drag', canvasDragEvent).on('end', dragEnd))
