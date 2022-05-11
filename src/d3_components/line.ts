@@ -1,5 +1,5 @@
 import { D3CANVAS, POINT } from "./type"
-import * as d3 from 'd3'
+// import * as d3 from 'd3'
 
 
 const drawLine = (container: D3CANVAS, startPoint: POINT, endPoints: POINT[]) => {
