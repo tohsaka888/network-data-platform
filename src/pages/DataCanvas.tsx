@@ -2,7 +2,11 @@ import { Layout, Tag } from "antd";
 import React, { useCallback, useEffect, useRef } from "react";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
-import { drawLine, drawRectLine } from "../d3_components/line";
+import {
+  drawHorizontalLine,
+  drawLine,
+  drawRectLine,
+} from "../d3_components/line";
 import {
   createPoint,
   createPointInfo,
@@ -103,6 +107,8 @@ function DataCanvas() {
           "rect-green",
           item
         );
+        item.x = (initX / 100) * containerWidth;
+        item.y = (initY / 100) * containerHeight + 50;
         // createRectInfo(
         //   containerRef.current,
         //   initX + 2 + "%",
@@ -151,6 +157,8 @@ function DataCanvas() {
           "rect-green",
           item
         );
+        item.x = (initX / 100) * containerWidth;
+        item.y = (initY / 100) * containerHeight + 50;
         // createRectInfo(
         //   containerRef.current,
         //   initX + 2 + "%",
@@ -263,6 +271,11 @@ function DataCanvas() {
     drawRectLine(containerRef.current, startPoint, terms[0]);
     drawRectLine(containerRef.current, startPoint, dataFields[0]);
     drawRectLine(containerRef.current, startPoint, fields[0]);
+    drawHorizontalLine(containerRef.current, terms);
+    drawHorizontalLine(containerRef.current, dataFields);
+    drawHorizontalLine(containerRef.current, fields);
+    drawHorizontalLine(containerRef.current, codeTables);
+    drawHorizontalLine(containerRef.current, modelProperties);
   }, [containerHeight, containerWidth]);
   return (
     <Content style={{ padding: "0px 24px" }}>
