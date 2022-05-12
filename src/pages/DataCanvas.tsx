@@ -2,7 +2,7 @@ import { Layout, Tag } from "antd";
 import React, { useCallback, useEffect, useRef } from "react";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
-import { drawLine } from "../d3_components/line";
+import { drawLine, drawRectLine } from "../d3_components/line";
 import {
   createPoint,
   createPointInfo,
@@ -47,15 +47,20 @@ function DataCanvas() {
     let initX = 5;
     let initY = 5;
     defaultPoint.forEach((item) => {
-      createPoint(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createPoint(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
+        "#3276F3"
+      );
       createPointInfo(
         containerRef.current,
-        initX + "%",
-        initY + "%",
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
         item.name
       );
-      item.x = initX / 100 * containerWidth
-      item.y = initY / 100 * containerHeight
+      item.x = (initX / 100) * containerWidth;
+      item.y = (initY / 100) * containerHeight;
       initY += 15;
     });
   }, [containerHeight, containerWidth]);
@@ -66,11 +71,13 @@ function DataCanvas() {
     fields.forEach((item) => {
       createRect(
         containerRef.current,
-        initX + "%",
-        initY + "%",
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
         "rect-purple",
         item
       );
+      item.x = (initX / 100) * containerWidth;
+      item.y = (initY / 100) * containerHeight + 50;
       // if (item.name.length > 4) {
       //   item.name = item.name.slice(0, 3) + "...";
       // }
@@ -82,28 +89,31 @@ function DataCanvas() {
       // );
       initX += 6;
     });
-  }, []);
+  }, [containerHeight, containerWidth]);
 
-  const createCodeTables = useCallback((x: number, y: number) => {
-    let initX = x;
-    let initY = y;
-    codeTables.forEach((item) => {
-      createRect(
-        containerRef.current,
-        initX + "%",
-        initY + "%",
-        "rect-green",
-        item
-      );
-      // createRectInfo(
-      //   containerRef.current,
-      //   initX + 2 + "%",
-      //   initY + 2 + "%",
-      //   item.name
-      // );
-      initX += 6;
-    });
-  }, []);
+  const createCodeTables = useCallback(
+    (x: number, y: number) => {
+      let initX = x;
+      let initY = y;
+      codeTables.forEach((item) => {
+        createRect(
+          containerRef.current,
+          (initX / 100) * containerWidth,
+          (initY / 100) * containerHeight,
+          "rect-green",
+          item
+        );
+        // createRectInfo(
+        //   containerRef.current,
+        //   initX + 2 + "%",
+        //   initY + 2 + "%",
+        //   item.name
+        // );
+        initX += 6;
+      });
+    },
+    [containerHeight, containerWidth]
+  );
 
   const createTerms = useCallback(() => {
     let initX = 30;
@@ -111,11 +121,13 @@ function DataCanvas() {
     terms.forEach((item) => {
       createRect(
         containerRef.current,
-        initX + "%",
-        initY + "%",
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
         "rect-blue",
         item
       );
+      item.x = (initX / 100) * containerWidth;
+      item.y = (initY / 100) * containerHeight + 50;
       // createRectInfo(
       //   containerRef.current,
       //   initX + 2 + "%",
@@ -125,28 +137,31 @@ function DataCanvas() {
       initX += 6;
     });
     createCodeTables(initX, initY);
-  }, [createCodeTables]);
+  }, [containerHeight, containerWidth, createCodeTables]);
 
-  const createModalProperties = useCallback((x: number, y: number) => {
-    let initX = x;
-    let initY = y;
-    modelProperties.forEach((item) => {
-      createRect(
-        containerRef.current,
-        initX + "%",
-        initY + "%",
-        "rect-green",
-        item
-      );
-      // createRectInfo(
-      //   containerRef.current,
-      //   initX + 2 + "%",
-      //   initY + 2 + "%",
-      //   item.name
-      // );
-      initX += 6;
-    });
-  }, []);
+  const createModalProperties = useCallback(
+    (x: number, y: number) => {
+      let initX = x;
+      let initY = y;
+      modelProperties.forEach((item) => {
+        createRect(
+          containerRef.current,
+          (initX / 100) * containerWidth,
+          (initY / 100) * containerHeight,
+          "rect-green",
+          item
+        );
+        // createRectInfo(
+        //   containerRef.current,
+        //   initX + 2 + "%",
+        //   initY + 2 + "%",
+        //   item.name
+        // );
+        initX += 6;
+      });
+    },
+    [containerHeight, containerWidth]
+  );
 
   const createDataFields = useCallback(() => {
     let initX = 30;
@@ -154,11 +169,13 @@ function DataCanvas() {
     dataFields.forEach((item) => {
       createRect(
         containerRef.current,
-        initX + "%",
-        initY + "%",
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
         "rect-blue",
         item
       );
+      item.x = (initX / 100) * containerWidth;
+      item.y = (initY / 100) * containerHeight + 50;
       // createRectInfo(
       //   containerRef.current,
       //   initX + 2 + "%",
@@ -168,38 +185,51 @@ function DataCanvas() {
       initX += 6;
     });
     createModalProperties(initX, initY);
-  }, [createModalProperties]);
+  }, [containerHeight, containerWidth, createModalProperties]);
 
-  const createModel = useCallback((x: number, y: number) => {
-    let initX = x;
-    let initY = y;
-    models.forEach((item) => {
-      createPoint(containerRef.current, initX + "%", initY + "%", "#3276F3");
-      createPointInfo(
-        containerRef.current,
-        initX + "%",
-        initY + "%",
-        item.name
-      );
-      initX += 6;
-    });
-  }, []);
+  const createModel = useCallback(
+    (x: number, y: number) => {
+      let initX = x;
+      let initY = y;
+      models.forEach((item) => {
+        createPoint(
+          containerRef.current,
+          (initX / 100) * containerWidth,
+          (initY / 100) * containerHeight,
+          "#3276F3"
+        );
+        createPointInfo(
+          containerRef.current,
+          (initX / 100) * containerWidth,
+          (initY / 100) * containerHeight,
+          item.name
+        );
+        initX += 6;
+      });
+    },
+    [containerHeight, containerWidth]
+  );
 
   const createData = useCallback(() => {
     let initX = 32;
     let initY = 85;
     data.forEach((item) => {
-      createPoint(containerRef.current, initX + "%", initY + "%", "#3276F3");
+      createPoint(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
+        "#3276F3"
+      );
       createPointInfo(
         containerRef.current,
-        initX + "%",
-        initY + "%",
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
         item.name
       );
       initX += 6;
     });
     createModel(initX, initY);
-  }, [createModel]);
+  }, [containerHeight, containerWidth, createModel]);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -224,11 +254,15 @@ function DataCanvas() {
   ]);
 
   useEffect(() => {
-    drawLine(
-      containerRef.current,
-      { x: 0.2 * containerWidth, y: 0.5 * containerHeight, pointId: "0" },
-      defaultPoint
-    );
+    const startPoint = {
+      x: 0.2 * containerWidth,
+      y: 0.5 * containerHeight,
+      pointId: "0",
+    };
+    drawLine(containerRef.current, startPoint, defaultPoint);
+    drawRectLine(containerRef.current, startPoint, terms[0]);
+    drawRectLine(containerRef.current, startPoint, dataFields[0]);
+    drawRectLine(containerRef.current, startPoint, fields[0]);
   }, [containerHeight, containerWidth]);
   return (
     <Content style={{ padding: "0px 24px" }}>
