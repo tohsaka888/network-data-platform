@@ -9,4 +9,10 @@ export type Point = {
   id: string;
   x?: number;
   y?: number;
+  property?: {
+    name: string;
+    id: string;
+    x?: number;
+    y?: number;
+  }[]
 }
