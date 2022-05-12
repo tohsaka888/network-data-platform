@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
 import {
+  drawArraw,
   drawHorizontalLine,
   drawLine,
   drawRectLine,
@@ -341,6 +342,7 @@ function DataCanvas({
     drawHorizontalLine(containerRef.current, terms);
     drawHorizontalLine(containerRef.current, fields);
     drawHorizontalLine(containerRef.current, codeTables);
+    drawArraw(containerRef.current);
   }, [containerHeight, containerWidth, startPoint]);
   return (
     <Content style={{ padding: "0px 24px" }}>

@@ -1,25 +1,27 @@
+import * as d3 from "d3"
 import { D3CANVAS, Point, POINT } from "./type"
 // import * as d3 from 'd3'
 
+let arrowSvg: any = null
+
+const drawArraw = (container: D3CANVAS) => {
+  arrowSvg =  container?.insert('defs', ':first-child')
+    .append('marker')
+    .attr('id', 'arrow')
+    .attr('viewBox', '0 -5 10 12')
+    .attr('refX', 10)
+    .attr('refY', '0')
+    .attr('markerWidth', '10')
+    .attr('markerHeight', '10')
+    .attr('orient', 'auto')
+    .attr('fill', '#84ADF8')
+    .attr('markerUnits', 'strokeWidth')
+    .append('path')
+    .attr('d', 'M0,-5L10,0L0,5')
+}
 
 const drawLine = (container: D3CANVAS, startPoint: POINT | Point, endPoints: Point[]) => {
   endPoints.forEach(item => {
-    const arrowSvg = container?.insert('svg', ':first-child')
-    if (item) {
-      arrowSvg?.append('defs')
-        .append('marker')
-        .attr('id', 'arrow')
-        .attr('viewBox', '0 -5 10 12')
-        .attr('refX', (item.x || 0 - +(startPoint.x || 0)) * 0.5)
-        .attr('refY', '0')
-        .attr('markerWidth', '10')
-        .attr('markerHeight', '10')
-        .attr('orient', 'auto')
-        .attr('fill', '#84ADF8')
-        .attr('markerUnits', 'strokeWidth')
-        .append('path')
-        .attr('d', 'M0,-5L10,0L0,5')
-    }
     arrowSvg?.append('path')
       .attr('d', 'M ' + startPoint.x + ' ' + startPoint.y + ' L ' + item.x + ' ' + item.y)
       .attr('stroke', '#84ADF8')
@@ -29,9 +31,8 @@ const drawLine = (container: D3CANVAS, startPoint: POINT | Point, endPoints: Poi
 }
 
 const drawRectLine = (container: D3CANVAS, startPoint: POINT, endPoint: Point) => {
-  const arrowSvg = container?.insert('svg', ':first-child')
   if (startPoint) {
-    arrowSvg?.append('defs')
+    arrowSvg?.append('path')
       .append('marker')
       .attr('id', 'arrow')
       .attr('viewBox', '0 -5 20 12')
@@ -59,4 +60,4 @@ const drawHorizontalLine = (container: D3CANVAS, points: Point[]) => {
     .attr('stroke-width', '1px')
 }
 
-export { drawLine, drawRectLine, drawHorizontalLine }
+export { drawLine, drawRectLine, drawHorizontalLine, drawArraw }
