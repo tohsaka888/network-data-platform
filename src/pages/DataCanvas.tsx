@@ -246,8 +246,18 @@ function DataCanvas() {
   }, [canvasDragEvent]);
 
   useEffect(() => {
-    createPoint(containerRef.current, "20%", "50%", "#ED7D0C");
-    createPointInfo(containerRef.current, "20%", "50%", centerPoint.name);
+    createPoint(
+      containerRef.current,
+      0.2 * containerWidth,
+      0.5 * containerHeight,
+      "#ED7D0C"
+    );
+    createPointInfo(
+      containerRef.current,
+      0.2 * containerWidth,
+      0.5 * containerHeight,
+      centerPoint.name
+    );
     createDefaultPoints();
     createFields();
     createTerms();
@@ -259,6 +269,8 @@ function DataCanvas() {
     createFields,
     createData,
     createTerms,
+    containerWidth,
+    containerHeight,
   ]);
 
   useEffect(() => {
