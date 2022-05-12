@@ -24,7 +24,7 @@ const createRect = (container: D3CANVAS, x: string | number, y: string | number,
     .text(point.name)
 }
 
-const createPointInfo = (container: D3CANVAS, x: string | number, y: string | number, info: string) => {
+const createPointInfo = (container: D3CANVAS, x: string | number, y: string | number, info: string, color?: string) => {
   container
     ?.append('text')
     .attr('x', x)
@@ -35,7 +35,7 @@ const createPointInfo = (container: D3CANVAS, x: string | number, y: string | nu
     .attr('text-anchor', 'middle')
     .attr('alignment-baseline', 'central')
     .attr('dominant-baseline', 'middle')
-    .attr('fill', '#fff')
+    .attr('fill', color || '#fff')
     .text(info)
 }
 
