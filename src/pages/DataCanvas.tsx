@@ -69,9 +69,16 @@ function DataCanvas() {
         (initY / 100) * containerHeight,
         item.name
       );
+      createPointInfo(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight + 30,
+        item.name,
+        "#000"
+      );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight;
-      initY += 15;
+      initY += 14;
     });
   }, [containerHeight, containerWidth]);
 
@@ -103,7 +110,7 @@ function DataCanvas() {
 
   const createCodeTables = useCallback(
     (x: number, y: number) => {
-      let initX = x + 24 * 100 / containerWidth;
+      let initX = x + (24 * 100) / containerWidth;
       let initY = y;
       codeTables.forEach((item) => {
         createRect(
@@ -222,6 +229,13 @@ function DataCanvas() {
           (initY / 100) * containerHeight,
           item.name
         );
+        createPointInfo(
+          containerRef.current,
+          (initX / 100) * containerWidth,
+          (initY / 100) * containerHeight + 30,
+          item.name,
+          "#000"
+        );
         item.x = (initX / 100) * containerWidth;
         item.y = (initY / 100) * containerHeight;
         propertyX = createDataProperties(item.property || [], propertyX, 55);
@@ -250,6 +264,13 @@ function DataCanvas() {
         (initY / 100) * containerHeight,
         item.name
       );
+      createPointInfo(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight + 30,
+        item.name,
+        "#000"
+      );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight;
       let dataFields = item.property || [];
@@ -277,6 +298,13 @@ function DataCanvas() {
       startPoint.x,
       startPoint.y,
       centerPoint.name
+    );
+    createPointInfo(
+      containerRef.current,
+      startPoint.x,
+      startPoint.y + 30,
+      centerPoint.name,
+      "#000"
     );
     createDefaultPoints();
     createFields();
