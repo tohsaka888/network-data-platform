@@ -103,7 +103,7 @@ function DataCanvas() {
 
   const createCodeTables = useCallback(
     (x: number, y: number) => {
-      let initX = x + 6;
+      let initX = x + 24 * 100 / containerWidth;
       let initY = y;
       codeTables.forEach((item) => {
         createRect(
