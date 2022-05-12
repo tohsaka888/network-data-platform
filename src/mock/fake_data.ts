@@ -29,6 +29,9 @@ const defaultPoint: Point[] = [
   {
     name: '资产',
     id: '5'
+  }, {
+    name: '资产',
+    id: '6'
   }
 ]
 
@@ -157,6 +160,9 @@ const modelProperties: Point[] = [
   }, {
     name: '模型属性4',
     id: '3'
+  }, {
+    name: '模型属性5',
+    id: '4'
   }
 ]
 
