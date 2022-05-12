@@ -1,4 +1,5 @@
 import { Layout, Tag } from "antd";
+// import * as d3 from "d3";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
@@ -24,12 +25,18 @@ import {
 } from "../mock/fake_data";
 import { CanvasArea, MainCanvas, TypeArea } from "./DataCancas.style";
 
-function DataCanvas() {
+function DataCanvas({
+  screenWidth,
+  screenHeight,
+}: {
+  screenWidth: number;
+  screenHeight: number;
+}) {
   const { Content } = Layout;
   const canvasRef = useRef<HTMLDivElement>();
   const containerRef = useRef<D3CANVAS>();
-  const containerWidth = window.innerWidth - 248;
-  const containerHeight = window.innerHeight - 64 - 64 - 40 - 16 - 54;
+  const containerWidth = screenWidth - 248;
+  const containerHeight = screenHeight - 64 - 64 - 40 - 16 - 54;
   const canvasDragEvent = useCallback(function (
     this: SVGSVGElement,
     event: any
@@ -286,6 +293,10 @@ function DataCanvas() {
   }, [containerHeight, containerWidth, createModelFields]);
 
   useEffect(() => {
+    containerRef.current?.selectAll("*").remove();
+  }, [containerHeight, containerWidth]);
+
+  useEffect(() => {
     if (canvasRef.current) {
       containerRef.current = createCanvas(canvasRef.current, canvasDragEvent);
     }
@@ -316,8 +327,6 @@ function DataCanvas() {
     createFields,
     createData,
     createTerms,
-    containerWidth,
-    containerHeight,
     startPoint.x,
     startPoint.y,
     createModel,
