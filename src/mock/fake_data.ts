@@ -2,11 +2,8 @@ import { Point } from "../d3_components/type"
 
 const centerPoint: Point = {
   name: '资产',
-  id: '0'
-}
-
-const defaultPoint: Point[] = [
-  {
+  id: '0',
+  property: [{
     name: '表',
     id: '0'
   },
@@ -32,8 +29,8 @@ const defaultPoint: Point[] = [
   }, {
     name: '资产',
     id: '6'
-  }
-]
+  }]
+}
 
 const fields: Point[] = [
   {
@@ -89,35 +86,71 @@ const terms: Point[] = [
   }
 ]
 
-const dataFields: Point[] = [
-  {
-    name: '数据字段1',
-    id: '0'
-  }, {
-    name: '数据字段2',
-    id: '1'
-  }, {
-    name: '数据字段3',
-    id: '2'
-  }, {
-    name: '数据字段4',
-    id: '3'
-  }, {
-    name: '数据字段5',
-    id: '4'
-  }
-]
+// const dataFields: Point[] = [
+//   {
+//     name: '数据字段1',
+//     id: '0',
+//   }, {
+//     name: '数据字段2',
+//     id: '1',
+//   }, {
+//     name: '数据字段3',
+//     id: '2'
+//   }, {
+//     name: '数据字段4',
+//     id: '3'
+//   }, {
+//     name: '数据字段5',
+//     id: '4'
+//   }
+// ]
 
 const data: Point[] = [
   {
     name: '数据元1',
-    id: '0'
+    id: '0',
+    property: [{
+      name: '数据字段1',
+      id: '0'
+    }, {
+      name: '数据字段2',
+      id: '1'
+    }, {
+      name: '数据字段3',
+      id: '2'
+    }]
   }, {
     name: '数据元2',
-    id: '1'
+    id: '1',
+    property: [{
+      name: '数据字段1',
+      id: '0'
+    }, {
+      name: '数据字段2',
+      id: '1'
+    }, {
+      name: '数据字段3',
+      id: '2'
+    }, {
+      name: '数据字段4',
+      id: '3'
+    }]
   }, {
     name: '数据元3',
-    id: '2'
+    id: '2',
+    property: [{
+      name: '数据字段1',
+      id: '0'
+    }, {
+      name: '数据字段2',
+      id: '1'
+    }, {
+      name: '数据字段3',
+      id: '2'
+    }, {
+      name: '数据字段4',
+      id: '3'
+    }]
   }
 ]
 
@@ -137,33 +170,70 @@ const codeTables: Point[] = [
 const models: Point[] = [
   {
     name: '模型1',
-    id: '0'
+    id: '0',
+    property: [
+      {
+        name: '模型属性1',
+        id: '0'
+      }, {
+        name: '模型属性2',
+        id: '1'
+      }, {
+        name: '模型属性3',
+        id: '2'
+      }, {
+        name: '模型属性4',
+        id: '3'
+      }, {
+        name: '模型属性5',
+        id: '4'
+      }
+    ]
   }, {
     name: '模型2',
-    id: '1'
+    id: '1',
+    property: [
+      {
+        name: '模型属性1',
+        id: '0'
+      }, {
+        name: '模型属性2',
+        id: '1'
+      }, {
+        name: '模型属性3',
+        id: '2'
+      }, {
+        name: '模型属性4',
+        id: '3'
+      }, {
+        name: '模型属性5',
+        id: '4'
+      }
+    ]
   }, {
     name: '模型3',
-    id: '2'
+    id: '2',
+    property: [
+      {
+        name: '模型属性1',
+        id: '0'
+      }, {
+        name: '模型属性2',
+        id: '1'
+      }, {
+        name: '模型属性3',
+        id: '2'
+      }, {
+        name: '模型属性4',
+        id: '3'
+      }, {
+        name: '模型属性5',
+        id: '4'
+      }
+    ]
   }
 ]
 
-const modelProperties: Point[] = [
-  {
-    name: '模型属性1',
-    id: '0'
-  }, {
-    name: '模型属性2',
-    id: '1'
-  }, {
-    name: '模型属性3',
-    id: '2'
-  }, {
-    name: '模型属性4',
-    id: '3'
-  }, {
-    name: '模型属性5',
-    id: '4'
-  }
-]
+// const modelProperties: Point[] = 
 
-export { centerPoint, defaultPoint, fields, terms, dataFields, data, codeTables, modelProperties, models }
+export { centerPoint, fields, terms, data, codeTables, models }
