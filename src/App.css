@@ -52,6 +52,12 @@
   border: 1px solid #99be9f;
   writing-mode: vertical-rl;
   color: #22602a;
+  cursor: pointer;
+}
+
+.rect-green:hover {
+  color: #fff;
+  background-color: #539d5e;
 }
 
 .rect-blue {
@@ -61,6 +67,12 @@
   border: 1px solid #93b9fe;
   writing-mode: vertical-rl;
   color: #0a4abe;
+  cursor: pointer;
+}
+
+.rect-blue:hover {
+  color: #fff;
+  background-color: #3f63a6;
 }
 
 .rect-purple {
@@ -70,4 +82,10 @@
   border: 1px solid #a6a0ff;
   writing-mode: vertical-rl;
   color: #3c34a9;
+  cursor: pointer;
+}
+
+.rect-purple:hover {
+  color: #fff;
+  background-color: #5c4c9c;
 }
