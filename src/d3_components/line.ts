@@ -18,4 +18,11 @@ const drawRectLine = (container: D3CANVAS, startPoint: POINT, endPoint: Point) =
     .attr('stroke-width', '1px')
 }
 
-export { drawLine, drawRectLine }
+const drawHorizontalLine = (container: D3CANVAS, points: Point[]) => {
+  container?.insert('path', ':first-child')
+    .attr('d', 'M ' + points[0].x + ' ' + points[0].y + ' L ' + points[points.length - 1].x + ' ' + points[points.length - 1].y)
+    .attr('stroke', '#84ADF8')
+    .attr('stroke-width', '1px')
+}
+
+export { drawLine, drawRectLine, drawHorizontalLine }
