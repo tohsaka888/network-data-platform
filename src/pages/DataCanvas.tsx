@@ -13,27 +13,31 @@ import {
   createPoint,
   createPointInfo,
   createRect,
-  // createRectInfo,
 } from "../d3_components/point";
-import { D3CANVAS, Point } from "../d3_components/type";
-import {
-  centerPoint,
-  codeTables,
-  data,
-  fields,
-  models,
-  terms,
-} from "../mock/fake_data";
+import { D3CANVAS } from "../d3_components/type";
+import { DATA, Entity } from "../type";
+// import { Entity } from "../mock/getData";
 import { CanvasArea, MainCanvas, TypeArea } from "./DataCancas.style";
+
+type Props = {
+  screenWidth: number;
+  screenHeight: number;
+} & DATA;
 
 function DataCanvas({
   screenWidth,
   screenHeight,
-}: {
-  screenWidth: number;
-  screenHeight: number;
-}) {
+  model,
+  centerPoint,
+  codeInfo,
+  terminology,
+  datameta,
+  property,
+  assetField,
+  defaultPoint,
+}: Props) {
   const { Content } = Layout;
+
   const canvasRef = useRef<HTMLDivElement>();
   const containerRef = useRef<D3CANVAS>();
   const containerWidth = screenWidth - 248;
@@ -56,7 +60,6 @@ function DataCanvas({
     () => ({
       x: 0.2 * containerWidth,
       y: 0.3 * containerHeight + 50,
-      pointId: "0",
     }),
     [containerHeight, containerWidth]
   );
@@ -64,36 +67,29 @@ function DataCanvas({
   const createDefaultPoints = useCallback(() => {
     let initX = 5;
     let initY = 5;
-    centerPoint.property?.forEach((item) => {
-      createPoint(
-        containerRef.current,
-        (initX / 100) * containerWidth,
-        (initY / 100) * containerHeight,
-        "#3276F3"
-      );
-      createPointInfo(
-        containerRef.current,
-        (initX / 100) * containerWidth,
-        (initY / 100) * containerHeight,
-        item.name
-      );
+    let unit = 100 / (defaultPoint.length || 0);
+    defaultPoint?.forEach((item) => {
+      let x = (initX / 100) * containerWidth;
+      let y = (initY / 100) * containerHeight;
+      createPoint(containerRef.current, x, y, "#3276F3", item);
+      createPointInfo(containerRef.current, x, y, item);
       createPointInfo(
         containerRef.current,
         (initX / 100) * containerWidth,
         (initY / 100) * containerHeight + 30,
-        item.name,
+        item,
         "#000"
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight;
-      initY += 14;
+      initY += unit;
     });
-  }, [containerHeight, containerWidth]);
+  }, [containerHeight, containerWidth, defaultPoint]);
 
   const createFields = useCallback(() => {
     let initX = 30;
     let initY = 30;
-    fields.forEach((item) => {
+    assetField?.forEach((item) => {
       createRect(
         containerRef.current,
         (initX / 100) * containerWidth,
@@ -114,13 +110,14 @@ function DataCanvas({
       // );
       initX += (24 * 100) / containerWidth;
     });
-  }, [containerHeight, containerWidth]);
+  }, [containerHeight, containerWidth, assetField]);
 
-  const createCodeTables = useCallback(
+  const createCodeInfo = useCallback(
     (x: number, y: number) => {
       let initX = x + (24 * 100) / containerWidth;
       let initY = y;
-      codeTables.forEach((item) => {
+      console.log(codeInfo);
+      codeInfo.forEach((item) => {
         createRect(
           containerRef.current,
           (initX / 100) * containerWidth,
@@ -130,22 +127,34 @@ function DataCanvas({
         );
         item.x = (initX / 100) * containerWidth;
         item.y = (initY / 100) * containerHeight + 50;
-        // createRectInfo(
-        //   containerRef.current,
-        //   initX + 2 + "%",
-        //   initY + 2 + "%",
-        //   item.name
-        // );
         initX += (24 * 100) / containerWidth;
       });
+      return initX;
     },
-    [containerHeight, containerWidth]
+    [codeInfo, containerHeight, containerWidth]
   );
 
-  const createTerms = useCallback(() => {
+  const createDataMeta = useCallback((initX: number, initY: number) => {
+    initX += (24 * 100) / containerWidth
+    datameta.forEach((item) => {
+      createRect(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
+        "rect-blue",
+        item
+      );
+      item.x = (initX / 100) * containerWidth;
+      item.y = (initY / 100) * containerHeight + 50;
+      initX += (24 * 100) / containerWidth;
+    })
+  }, [containerHeight, containerWidth, datameta]);
+
+
+  const createTerminology = useCallback(() => {
     let initX = 30;
     let initY = 5;
-    terms.forEach((item) => {
+    terminology.forEach((item) => {
       createRect(
         containerRef.current,
         (initX / 100) * containerWidth,
@@ -163,40 +172,20 @@ function DataCanvas({
       // );
       initX += (24 * 100) / containerWidth;
     });
-    createCodeTables(initX, initY);
-  }, [containerHeight, containerWidth, createCodeTables]);
-
-  const createDataProperties = useCallback(
-    (dataProperties: Point[], x: number, y: number) => {
-      let initX = x + (24 * 100) / containerWidth;
-      let initY = y;
-      dataProperties.forEach((item) => {
-        createRect(
-          containerRef.current,
-          (initX / 100) * containerWidth,
-          (initY / 100) * containerHeight,
-          "rect-green",
-          item
-        );
-        item.x = (initX / 100) * containerWidth + 12;
-        item.y = (initY / 100) * containerHeight + 100;
-        // createRectInfo(
-        //   containerRef.current,
-        //   initX + 2 + "%",
-        //   initY + 2 + "%",
-        //   item.name
-        // );
-        initX += (24 * 100) / containerWidth;
-      });
-      return initX;
-    },
-    [containerHeight, containerWidth]
-  );
+    let dataInitX = createCodeInfo(initX, initY);
+    createDataMeta(dataInitX, initY);
+  }, [
+    containerHeight,
+    containerWidth,
+    createCodeInfo,
+    createDataMeta,
+    terminology,
+  ]);
 
   const createModelFields = useCallback(
-    (modelFields: Point[], initX = 30) => {
+    (initX = 30) => {
       let initY = 55;
-      modelFields.forEach((item) => {
+      property.forEach((item) => {
         createRect(
           containerRef.current,
           (initX / 100) * containerWidth,
@@ -216,83 +205,54 @@ function DataCanvas({
       });
       return initX + (24 * 100) / containerWidth;
     },
-    [containerHeight, containerWidth]
+    [containerHeight, containerWidth, property]
   );
 
-  // 创建Data
-  const createData = useCallback(
-    (x: number, y: number, propertyX: number) => {
-      let initX = propertyX + (24 * 100) / containerWidth;
-      let initY = y;
-      data.forEach((item) => {
-        let dataProperty = item.property || [];
-        initX = propertyX + ((36 * 100) / containerWidth) * dataProperty.length / 2;
-        createPoint(
-          containerRef.current,
-          (initX / 100) * containerWidth,
-          (initY / 100) * containerHeight,
-          "#3276F3"
-        );
-        createPointInfo(
-          containerRef.current,
-          (initX / 100) * containerWidth,
-          (initY / 100) * containerHeight,
-          item.name
-        );
-        createPointInfo(
-          containerRef.current,
-          (initX / 100) * containerWidth,
-          (initY / 100) * containerHeight + 30,
-          item.name,
-          "#000"
-        );
-        item.x = (initX / 100) * containerWidth;
-        item.y = (initY / 100) * containerHeight;
-        propertyX = createDataProperties(item.property || [], propertyX, 55);
-        // drawHorizontalLine(containerRef.current, item.property || []);
-        drawLine(containerRef.current, item, item.property || []);
-      });
-    },
-    [containerHeight, containerWidth, createDataProperties]
-  );
+
   // 创建model
   const createModel = useCallback(() => {
     let propertyX = 30;
     let initY = 85;
     let initX = propertyX + (24 * 100) / containerWidth;
-    models.forEach((item) => {
-      let dataFields = item.property || [];
-      initX = propertyX + ((24 * 100) / containerWidth) * (dataFields.length / 2);
+    model.forEach((item) => {
+      initX = propertyX + ((24 * 100) / containerWidth) * (property.length / 2);
       createPoint(
         containerRef.current,
         (initX / 100) * containerWidth,
         (initY / 100) * containerHeight,
-        "#3276F3"
+        "#3276F3",
+        item
       );
       createPointInfo(
         containerRef.current,
         (initX / 100) * containerWidth,
         (initY / 100) * containerHeight,
-        item.name
+        item
       );
       createPointInfo(
         containerRef.current,
         (initX / 100) * containerWidth,
         (initY / 100) * containerHeight + 30,
-        item.name,
+        item,
         "#000"
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight;
-      propertyX = createModelFields(dataFields, propertyX);
-      // drawRectLine(containerRef.current, startPoint, dataFields[0]);
-      // drawHorizontalLine(containerRef.current, dataFields);
-      drawLine(containerRef.current, item, item.property || []);
+      propertyX = createModelFields(propertyX);
+      // drawRectLine(containerRef.current, startPoint, datametaFields[0]);
+      // drawHorizontalLine(containerRef.current, datametaFields);
+      drawLine(containerRef.current, item, item.childEntities || []);
     });
     return { initX, initY, propertyX };
-    // createData(initX, initY);
-    // createDataProperties(propertyX, 55);
-  }, [containerHeight, containerWidth, createModelFields]);
+    // createDatameta(initX, initY);
+    // createDatametaProperties(propertyX, 55);
+  }, [
+    containerHeight,
+    containerWidth,
+    createModelFields,
+    model,
+    property.length,
+  ]);
 
   useEffect(() => {
     containerRef.current?.selectAll("*").remove();
@@ -305,46 +265,54 @@ function DataCanvas({
   }, [canvasDragEvent]);
 
   useEffect(() => {
-    createPoint(containerRef.current, startPoint.x, startPoint.y, "#ED7D0C");
-    createPointInfo(
-      containerRef.current,
-      startPoint.x,
-      startPoint.y,
-      centerPoint.name
-    );
-    createPointInfo(
-      containerRef.current,
-      startPoint.x,
-      startPoint.y + 30,
-      centerPoint.name,
-      "#000"
-    );
-    createDefaultPoints();
-    createFields();
-    createTerms();
-    let pos = createModel();
-    createData(pos.initX, pos.initY, pos.propertyX);
+    if (centerPoint) {
+      createPoint(
+        containerRef.current,
+        startPoint.x,
+        startPoint.y,
+        "#ED7D0C",
+        centerPoint[0]
+      );
+      createPointInfo(
+        containerRef.current,
+        startPoint.x,
+        startPoint.y,
+        centerPoint[0]
+      );
+      createPointInfo(
+        containerRef.current,
+        startPoint.x,
+        startPoint.y + 30,
+        centerPoint[0],
+        "#000"
+      );
+      createDefaultPoints();
+      createFields();
+      createTerminology();
+      let pos = createModel();
+      // createDatameta(pos.initX, pos.initY, pos.propertyX);
+    }
   }, [
-    createDefaultPoints,
     createFields,
-    createData,
-    createTerms,
+    createTerminology,
     startPoint.x,
     startPoint.y,
     createModel,
+    centerPoint,
+    createDefaultPoints,
   ]);
 
   useEffect(() => {
-    if (centerPoint.property) {
-      drawLine(containerRef.current, startPoint, centerPoint.property);
-    }
-    drawRectLine(containerRef.current, startPoint, terms[0]);
-    drawRectLine(containerRef.current, startPoint, fields[0]);
-    // drawHorizontalLine(containerRef.current, terms);
+    // if (centerPoint[0].childEntities) {
+    // drawLine(containerRef.current, startPoint, centerPoint[0].childEntities);
+    // }
+    // drawRectLine(containerRef.current, startPoint, terminology[0]);
+    // drawRectLine(containerRef.current, startPoint, fields[0]);
+    // drawHorizontalLine(containerRef.current, terminology);
     // drawHorizontalLine(containerRef.current, fields);
-    // drawHorizontalLine(containerRef.current, codeTables);
+    // drawHorizontalLine(containerRef.current, codeInfo);
     drawArraw();
-  }, [containerHeight, containerWidth, startPoint]);
+  }, [centerPoint, containerHeight, containerWidth, startPoint, terminology]);
   return (
     <Content style={{ padding: "0px 24px" }}>
       <SelectArea />
