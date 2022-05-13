@@ -1,31 +1,37 @@
-import { D3CANVAS, Point } from "./type"
+import { Entity } from "../type"
+import { D3CANVAS } from "./type"
 
-const createPoint = (container: D3CANVAS, x: string | number, y: string | number, color: string) => {
-  const pointContainer = container?.append('g')
-  pointContainer
-    ?.append('circle')
-    .attr('cx', x)
-    .attr('cy', y)
-    .attr('r', 20)
-    .attr('fill', color)
+const createPoint = (container: D3CANVAS, x: string | number, y: string | number, color: string, entity: Entity) => {
+  if (entity) {
+    const pointContainer = container?.append('g').attr('id', entity.id)
+    pointContainer
+      ?.append('circle')
+      .attr('cx', x)
+      .attr('cy', y)
+      .attr('r', 20)
+      .attr('fill', color)
+  }
 }
 
-const createRect = (container: D3CANVAS, x: string | number, y: string | number, color: string, point: Point) => {
-  const rectContainer = container
-    ?.append('foreignObject')
-    .attr('x', x)
-    .attr('y', y)
-    .attr('width', '24px')
-    .attr('height', '100px')
-  rectContainer
-    ?.append('xhtml:div')
-    .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-    .classed(color, true)
-    .text(point.name)
+const createRect = (container: D3CANVAS, x: string | number, y: string | number, color: string, entity: Entity) => {
+  if (entity) {
+    const rectContainer = container
+      ?.append('foreignObject')
+      .attr('x', x)
+      .attr('y', y)
+      .attr('width', '24px')
+      .attr('height', '100px')
+    rectContainer
+      ?.append('xhtml:div')
+      .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+      .classed(color, true)
+      .text(entity.name)
+  }
 }
 
-const createPointInfo = (container: D3CANVAS, x: string | number, y: string | number, info: string, color?: string) => {
-  container
+const createPointInfo = (container: D3CANVAS, x: string | number, y: string | number, entity: Entity, color?: string) => {
+  if (entity) {
+    container
     ?.append('text')
     .attr('x', x)
     .attr('y', y)
@@ -36,7 +42,8 @@ const createPointInfo = (container: D3CANVAS, x: string | number, y: string | nu
     .attr('alignment-baseline', 'central')
     .attr('dominant-baseline', 'middle')
     .attr('fill', color || '#fff')
-    .text(info)
+    .text(entity.name)
+  }
 }
 
 // const createRectInfo = (container: D3CANVAS, x: string | number, y: string | number, info: string) => {
