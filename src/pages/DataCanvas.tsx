@@ -5,7 +5,7 @@ import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
 import {
   drawArraw,
-  drawHorizontalLine,
+  // drawHorizontalLine,
   drawLine,
   drawRectLine,
 } from "../d3_components/line";
@@ -222,9 +222,11 @@ function DataCanvas({
   // 创建Data
   const createData = useCallback(
     (x: number, y: number, propertyX: number) => {
-      let initX = x + (24 * 100) / containerWidth;
+      let initX = propertyX + (24 * 100) / containerWidth;
       let initY = y;
       data.forEach((item) => {
+        let dataProperty = item.property || [];
+        initX = propertyX + ((36 * 100) / containerWidth) * dataProperty.length / 2;
         createPoint(
           containerRef.current,
           (initX / 100) * containerWidth,
@@ -247,8 +249,7 @@ function DataCanvas({
         item.x = (initX / 100) * containerWidth;
         item.y = (initY / 100) * containerHeight;
         propertyX = createDataProperties(item.property || [], propertyX, 55);
-        drawHorizontalLine(containerRef.current, item.property || []);
-        initX = propertyX + (48 * 100) / containerWidth;
+        // drawHorizontalLine(containerRef.current, item.property || []);
         drawLine(containerRef.current, item, item.property || []);
       });
     },
@@ -257,9 +258,11 @@ function DataCanvas({
   // 创建model
   const createModel = useCallback(() => {
     let propertyX = 30;
-    let initX = propertyX + (24 * 100) / containerWidth;
     let initY = 85;
+    let initX = propertyX + (24 * 100) / containerWidth;
     models.forEach((item) => {
+      let dataFields = item.property || [];
+      initX = propertyX + ((24 * 100) / containerWidth) * (dataFields.length / 2);
       createPoint(
         containerRef.current,
         (initX / 100) * containerWidth,
@@ -281,11 +284,9 @@ function DataCanvas({
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight;
-      let dataFields = item.property || [];
       propertyX = createModelFields(dataFields, propertyX);
       // drawRectLine(containerRef.current, startPoint, dataFields[0]);
-      drawHorizontalLine(containerRef.current, dataFields);
-      initX = propertyX + (24 * 100) / containerWidth;
+      // drawHorizontalLine(containerRef.current, dataFields);
       drawLine(containerRef.current, item, item.property || []);
     });
     return { initX, initY, propertyX };
@@ -339,10 +340,10 @@ function DataCanvas({
     }
     drawRectLine(containerRef.current, startPoint, terms[0]);
     drawRectLine(containerRef.current, startPoint, fields[0]);
-    drawHorizontalLine(containerRef.current, terms);
-    drawHorizontalLine(containerRef.current, fields);
-    drawHorizontalLine(containerRef.current, codeTables);
-    drawArraw(containerRef.current);
+    // drawHorizontalLine(containerRef.current, terms);
+    // drawHorizontalLine(containerRef.current, fields);
+    // drawHorizontalLine(containerRef.current, codeTables);
+    drawArraw();
   }, [containerHeight, containerWidth, startPoint]);
   return (
     <Content style={{ padding: "0px 24px" }}>
