@@ -16,7 +16,7 @@ const createRect = (container: D3CANVAS, x: string | number, y: string | number,
     .attr('x', x)
     .attr('y', y)
     .attr('width', '24px')
-    .attr('height', '160px')
+    .attr('height', '100px')
   rectContainer
     ?.append('xhtml:div')
     .attr('xmlns', 'http://www.w3.org/1999/xhtml')
