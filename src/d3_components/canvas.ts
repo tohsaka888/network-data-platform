@@ -1,6 +1,6 @@
 // 画布相关
 import * as d3 from 'd3'
-import { D3CANVAS } from './type';
+import { D3CANVAS } from '../type';
 
 function dragStart(this: SVGSVGElement, event: any) {
   d3.select(this).style('cursor', 'grabbing');

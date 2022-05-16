@@ -1,5 +1,4 @@
-import { Entity } from "../type"
-import { D3CANVAS } from "./type"
+import { Entity, D3CANVAS } from "../type"
 
 const createPoint = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity) => {
   if (entity) {

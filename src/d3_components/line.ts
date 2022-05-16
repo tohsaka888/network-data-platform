@@ -1,7 +1,5 @@
 import * as d3 from "d3"
-import { EDGE } from "../type"
-import { D3CANVAS, Point, POINT } from "./type"
-// import * as d3 from 'd3'
+import { EDGE, D3CANVAS } from "../type"
 
 const drawArraw = () => {
   d3.selectAll('svg').insert('defs', ':first-child')
@@ -59,25 +57,25 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
   })
 }
 
-const drawRectLine = (container: D3CANVAS, startPoint: POINT, endPoint: Point) => {
-  let midX = null
-  let midY = null
-  if (startPoint.x && startPoint.y && endPoint.x && endPoint.y) {
-    midX = (+startPoint.x + endPoint.x) / 2
-    midY = (+startPoint.y + endPoint.y) / 2
-  }
-  container?.insert('path', ':first-child')
-    .attr('d', 'M ' + startPoint.x + ' ' + startPoint.y + ' L ' + midX + ' ' + midY + ' L ' + endPoint.x + ' ' + endPoint.y)
-    .attr('stroke', '#84ADF8')
-    .attr('stroke-width', '1px')
-    .attr('marker-mid', 'url(#arrow)')
-}
+// const drawRectLine = (container: D3CANVAS, startPoint: POINT, endPoint: Point) => {
+//   let midX = null
+//   let midY = null
+//   if (startPoint.x && startPoint.y && endPoint.x && endPoint.y) {
+//     midX = (+startPoint.x + endPoint.x) / 2
+//     midY = (+startPoint.y + endPoint.y) / 2
+//   }
+//   container?.insert('path', ':first-child')
+//     .attr('d', 'M ' + startPoint.x + ' ' + startPoint.y + ' L ' + midX + ' ' + midY + ' L ' + endPoint.x + ' ' + endPoint.y)
+//     .attr('stroke', '#84ADF8')
+//     .attr('stroke-width', '1px')
+//     .attr('marker-mid', 'url(#arrow)')
+// }
 
-const drawHorizontalLine = (container: D3CANVAS, points: Point[]) => {
-  container?.insert('path', ':first-child')
-    .attr('d', 'M ' + points[0].x + ' ' + points[0].y + ' L ' + points[points.length - 1].x + ' ' + points[points.length - 1].y)
-    .attr('stroke', '#84ADF8')
-    .attr('stroke-width', '1px')
-}
+// const drawHorizontalLine = (container: D3CANVAS, points: Point[]) => {
+//   container?.insert('path', ':first-child')
+//     .attr('d', 'M ' + points[0].x + ' ' + points[0].y + ' L ' + points[points.length - 1].x + ' ' + points[points.length - 1].y)
+//     .attr('stroke', '#84ADF8')
+//     .attr('stroke-width', '1px')
+// }
 
-export { drawLine, drawRectLine, drawHorizontalLine, drawArraw }
+export { drawLine, drawArraw }
