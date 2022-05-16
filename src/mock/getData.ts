@@ -30,5 +30,5 @@ export const getData = async () => {
       defaultPoint.push(item)
     }
   })
-  return { model, centerPoint, defaultPoint, datameta, codeInfo, terminology, property, assetField }
+  return { model, centerPoint, defaultPoint, datameta, codeInfo, terminology, property, assetField, edges: data.data.edges }  
 }
