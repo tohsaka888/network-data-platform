@@ -7,7 +7,6 @@ import {
   drawArraw,
   // drawHorizontalLine,
   drawLine,
-  drawRectLine,
 } from "../d3_components/line";
 import {
   createPoint,
@@ -15,7 +14,7 @@ import {
   createRect,
 } from "../d3_components/point";
 import { D3CANVAS } from "../d3_components/type";
-import { DATA, Entity } from "../type";
+import { DATA } from "../type";
 // import { Entity } from "../mock/getData";
 import { CanvasArea, MainCanvas, TypeArea } from "./DataCancas.style";
 
@@ -35,6 +34,7 @@ function DataCanvas({
   property,
   assetField,
   defaultPoint,
+  edges,
 }: Props) {
   const { Content } = Layout;
 
@@ -95,7 +95,8 @@ function DataCanvas({
         (initX / 100) * containerWidth,
         (initY / 100) * containerHeight,
         "rect-purple",
-        item
+        item,
+        0.3 * containerWidth
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight + 50;
@@ -134,22 +135,24 @@ function DataCanvas({
     [codeInfo, containerHeight, containerWidth]
   );
 
-  const createDataMeta = useCallback((initX: number, initY: number) => {
-    initX += (24 * 100) / containerWidth
-    datameta.forEach((item) => {
-      createRect(
-        containerRef.current,
-        (initX / 100) * containerWidth,
-        (initY / 100) * containerHeight,
-        "rect-blue",
-        item
-      );
-      item.x = (initX / 100) * containerWidth;
-      item.y = (initY / 100) * containerHeight + 50;
+  const createDataMeta = useCallback(
+    (initX: number, initY: number) => {
       initX += (24 * 100) / containerWidth;
-    })
-  }, [containerHeight, containerWidth, datameta]);
-
+      datameta.forEach((item) => {
+        createRect(
+          containerRef.current,
+          (initX / 100) * containerWidth,
+          (initY / 100) * containerHeight,
+          "rect-blue",
+          item
+        );
+        item.x = (initX / 100) * containerWidth;
+        item.y = (initY / 100) * containerHeight + 50;
+        initX += (24 * 100) / containerWidth;
+      });
+    },
+    [containerHeight, containerWidth, datameta]
+  );
 
   const createTerminology = useCallback(() => {
     let initX = 30;
@@ -208,7 +211,6 @@ function DataCanvas({
     [containerHeight, containerWidth, property]
   );
 
-
   // 创建model
   const createModel = useCallback(() => {
     let propertyX = 30;
@@ -241,7 +243,7 @@ function DataCanvas({
       propertyX = createModelFields(propertyX);
       // drawRectLine(containerRef.current, startPoint, datametaFields[0]);
       // drawHorizontalLine(containerRef.current, datametaFields);
-      drawLine(containerRef.current, item, item.childEntities || []);
+      // drawLine(containerRef.current, item, item.childEntities || []);
     });
     return { initX, initY, propertyX };
     // createDatameta(initX, initY);
@@ -289,7 +291,7 @@ function DataCanvas({
       createDefaultPoints();
       createFields();
       createTerminology();
-      let pos = createModel();
+      createModel();
       // createDatameta(pos.initX, pos.initY, pos.propertyX);
     }
   }, [
@@ -312,7 +314,8 @@ function DataCanvas({
     // drawHorizontalLine(containerRef.current, fields);
     // drawHorizontalLine(containerRef.current, codeInfo);
     drawArraw();
-  }, [centerPoint, containerHeight, containerWidth, startPoint, terminology]);
+    drawLine(containerRef.current, edges);
+  }, [edges]);
   return (
     <Content style={{ padding: "0px 24px" }}>
       <SelectArea />
