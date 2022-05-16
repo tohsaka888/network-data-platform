@@ -1,6 +1,7 @@
 import { Layout, Tag } from "antd";
 // import * as d3 from "d3";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import HiddenArea from "../components/HiddenArea";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
 import { drawArraw, drawLine } from "../d3_components/line";
@@ -37,6 +38,9 @@ function DataCanvas({
   const containerRef = useRef<D3CANVAS>();
   const containerWidth = screenWidth - 248;
   const containerHeight = screenHeight - 64 - 64 - 40 - 16 - 54;
+  const showButtonRef = useRef<
+    d3.Selection<SVGForeignObjectElement, unknown, null, undefined> | undefined
+  >();
   const canvasDragEvent = useCallback(function (
     this: SVGSVGElement,
     event: any
@@ -67,6 +71,9 @@ function DataCanvas({
       let x = (initX / 100) * containerWidth;
       let y = (initY / 100) * containerHeight;
       createPoint(containerRef.current, x, y, "#3276F3", item);
+      if (item.name.length > 4) {
+        item.name = item.name.slice(0, 3) + "...";
+      }
       createPointInfo(containerRef.current, x, y, item);
       createPointInfo(
         containerRef.current,
@@ -84,6 +91,19 @@ function DataCanvas({
   const createFields = useCallback(() => {
     let initX = 30;
     let initY = 30;
+    showButtonRef.current = createRect(
+      containerRef.current,
+      (initX / 100) * containerWidth,
+      (initY / 100) * containerHeight,
+      "rect-purple",
+      {
+        name: "属性",
+        id: "property",
+        label: "",
+      }
+    );
+
+    initX += (24 * 100) / containerWidth;
     assetField?.forEach((item) => {
       createRect(
         containerRef.current,
@@ -95,18 +115,9 @@ function DataCanvas({
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight + 50;
-      // if (item.name.length > 4) {
-      //   item.name = item.name.slice(0, 3) + "...";
-      // }
-      // createRectInfo(
-      //   containerRef.current,
-      //   initX + 2 + "%",
-      //   initY + 2 + "%",
-      //   item.name
-      // );
       initX += (24 * 100) / containerWidth;
     });
-  }, [containerHeight, containerWidth, assetField]);
+  }, [assetField, containerWidth, containerHeight]);
 
   const createCodeInfo = useCallback(
     (x: number, y: number) => {
@@ -204,7 +215,7 @@ function DataCanvas({
     },
     [containerHeight, containerWidth, property]
   );
-
+  console.log("rerender");
   // 创建model
   const createModel = useCallback(() => {
     let propertyX = 30;
@@ -322,6 +333,7 @@ function DataCanvas({
           }}
         />
       </MainCanvas>
+      {showButtonRef.current && <HiddenArea showButton={showButtonRef} />}
     </Content>
   );
 }
