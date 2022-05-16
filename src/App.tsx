@@ -3,7 +3,7 @@ import { Layout } from "antd";
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getData } from "./mock/getData";
-import {DATA} from './type'
+import { DATA } from "./type";
 import DataCanvas from "./pages/DataCanvas";
 
 function App() {
@@ -33,9 +33,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getData().then(data => {
+    getData().then((data) => {
       setData(data);
-    })
+    });
   }, []);
 
   return (
@@ -46,11 +46,13 @@ function App() {
           <Sider theme="light" className="layout-sider" />
           <Layout style={{ height: contentHeight }}>
             <Header style={{ background: "white" }} />
-            <DataCanvas
-              screenHeight={screenHeight}
-              screenWidth={screenWidth}
-              {...data}
-            />
+            {data.edges.length !== 0 && (
+              <DataCanvas
+                screenHeight={screenHeight}
+                screenWidth={screenWidth}
+                {...data}
+              />
+            )}
           </Layout>
         </Layout>
       </Layout>
