@@ -1,4 +1,5 @@
 import * as d3 from "d3"
+import { EDGE } from "../type"
 import { D3CANVAS, Point, POINT } from "./type"
 // import * as d3 from 'd3'
 
@@ -18,16 +19,40 @@ const drawArraw = () => {
     .attr('d', 'M0,-5L10,0L0,5')
 }
 
-const drawLine = (container: D3CANVAS, startPoint: POINT | Point, endPoints: Point[]) => {
-  endPoints.forEach(item => {
-    let midX = null
-    let midY = null
-    if (startPoint.x && startPoint.y && item.x && item.y) {
-      midX = (+startPoint.x + item.x) / 2
-      midY = (+startPoint.y + item.y) / 2
+const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
+  edges.forEach(item => {
+    if (!item.fromId) {
+      item.fromId = 'null'
     }
+    if (!item.toId || item.toId === '000001002') {
+      item.toId = 'null'
+    }
+    let fromX = container?.select('#id' + item.fromId).attr('x') || 0
+    let fromY = container?.select('#id' + item.fromId).attr('y') || 0
+    let toX = container?.select('#id' + item.toId).attr('x') || 0
+    let toY = container?.select('#id' + item.toId).attr('y') || 0
+
+    if (item.fromId.includes('asset') && !item.fromId.includes('field') && item.toId.includes('asset_field')) {
+      toX = container?.select('#id' + item.toId).attr('fieldX') || 0
+      toY = +toY + 50
+    } else if (item.fromId.includes('asset_field') && item.toId.includes('property')) {
+      fromX = +fromX + 12
+      fromY = + fromY + 100
+      toX = +toX + 12
+    } else if (item.fromId.includes('asset_field') && (item.toId.includes('terminology') || item.toId.includes('codeinfo') || item.toId.includes('data_meta'))) {
+      fromX = +fromX + 12
+      fromY = + fromY
+      toX = +toX + 12
+      toY = +toY + 100
+    } else if (item.fromId.includes('model') && item.toId.includes('property')) {
+      toX = +toX + 12
+      toY = + toY + 100
+    }
+    let midX = (+fromX + +toX) / 2
+    let midY = (+fromY + +toY) / 2
+
     container?.insert('path', ':first-child')
-      .attr('d', 'M ' + startPoint.x + ' ' + startPoint.y + ' L ' + midX + ' ' + midY + ' L ' + item.x + ' ' + item.y)
+      .attr('d', 'M ' + fromX + ' ' + fromY + ' L ' + midX + ' ' + midY + ' L ' + toX + ' ' + toY)
       .attr('stroke', '#84ADF8')
       .attr('stroke-width', '1px')
       .attr('marker-mid', 'url(#arrow)')
@@ -36,11 +61,11 @@ const drawLine = (container: D3CANVAS, startPoint: POINT | Point, endPoints: Poi
 
 const drawRectLine = (container: D3CANVAS, startPoint: POINT, endPoint: Point) => {
   let midX = null
-    let midY = null
-    if (startPoint.x && startPoint.y && endPoint.x && endPoint.y) {
-      midX = (+startPoint.x + endPoint.x) / 2
-      midY = (+startPoint.y + endPoint.y) / 2
-    }
+  let midY = null
+  if (startPoint.x && startPoint.y && endPoint.x && endPoint.y) {
+    midX = (+startPoint.x + endPoint.x) / 2
+    midY = (+startPoint.y + endPoint.y) / 2
+  }
   container?.insert('path', ':first-child')
     .attr('d', 'M ' + startPoint.x + ' ' + startPoint.y + ' L ' + midX + ' ' + midY + ' L ' + endPoint.x + ' ' + endPoint.y)
     .attr('stroke', '#84ADF8')
