@@ -305,17 +305,12 @@ function DataCanvas({
   ]);
 
   useEffect(() => {
-    // if (centerPoint[0].childEntities) {
-    // drawLine(containerRef.current, startPoint, centerPoint[0].childEntities);
-    // }
-    // drawRectLine(containerRef.current, startPoint, terminology[0]);
-    // drawRectLine(containerRef.current, startPoint, fields[0]);
-    // drawHorizontalLine(containerRef.current, terminology);
-    // drawHorizontalLine(containerRef.current, fields);
-    // drawHorizontalLine(containerRef.current, codeInfo);
-    drawArraw();
     drawLine(containerRef.current, edges);
-  }, [edges]);
+  }, [edges, containerHeight, containerWidth]);
+
+  useEffect(() => {
+    drawArraw();
+  }, []);
   return (
     <Content style={{ padding: "0px 24px" }}>
       <SelectArea />
