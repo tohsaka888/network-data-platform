@@ -13,6 +13,11 @@ export type Entity = {
   }[]
 }
 
+export type EDGE = {
+  fromId: string;
+  toId: string;
+  name: string | null;
+}
 
 export type DATA = {
   model: Entity[];
@@ -23,4 +28,5 @@ export type DATA = {
   terminology: Entity[];
   property: Entity[];
   assetField: Entity[];
+  edges: EDGE[];
 }
