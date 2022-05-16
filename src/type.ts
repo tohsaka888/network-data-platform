@@ -32,3 +32,5 @@ export type DATA = {
   assetField: Entity[];
   edges: EDGE[];
 }
+
+export type ShowButton = d3.Selection<SVGForeignObjectElement, unknown, null, undefined> | undefined
