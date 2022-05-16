@@ -1,9 +1,13 @@
 import { Entity } from "../type"
 import { D3CANVAS } from "./type"
 
-const createPoint = (container: D3CANVAS, x: string | number, y: string | number, color: string, entity: Entity) => {
+const createPoint = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity) => {
   if (entity) {
-    const pointContainer = container?.append('g').attr('id', entity.id)
+    const pointContainer = container
+      ?.append('g')
+      .attr('id', 'id' + entity.id || 'null')
+      .attr('x', x)
+      .attr('y', y)
     pointContainer
       ?.append('circle')
       .attr('cx', x)
@@ -13,12 +17,14 @@ const createPoint = (container: D3CANVAS, x: string | number, y: string | number
   }
 }
 
-const createRect = (container: D3CANVAS, x: string | number, y: string | number, color: string, entity: Entity) => {
+const createRect = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity, fieldX?: number) => {
   if (entity) {
     const rectContainer = container
       ?.append('foreignObject')
+      .attr('id', 'id' + entity.id || 'null')
       .attr('x', x)
       .attr('y', y)
+      .attr('fieldX', fieldX || 0)
       .attr('width', '24px')
       .attr('height', '100px')
     rectContainer
@@ -29,20 +35,20 @@ const createRect = (container: D3CANVAS, x: string | number, y: string | number,
   }
 }
 
-const createPointInfo = (container: D3CANVAS, x: string | number, y: string | number, entity: Entity, color?: string) => {
+const createPointInfo = (container: D3CANVAS, x: number, y: number, entity: Entity, color?: string) => {
   if (entity) {
     container
-    ?.append('text')
-    .attr('x', x)
-    .attr('y', y)
-    .attr('font-size', '12px')
-    // .attr('font-weight', 'bold')
-    .style('font-family', 'PingFang SC')
-    .attr('text-anchor', 'middle')
-    .attr('alignment-baseline', 'central')
-    .attr('dominant-baseline', 'middle')
-    .attr('fill', color || '#fff')
-    .text(entity.name)
+      ?.append('text')
+      .attr('x', x)
+      .attr('y', y)
+      .attr('font-size', '12px')
+      // .attr('font-weight', 'bold')
+      .style('font-family', 'PingFang SC')
+      .attr('text-anchor', 'middle')
+      .attr('alignment-baseline', 'central')
+      .attr('dominant-baseline', 'middle')
+      .attr('fill', color || '#fff')
+      .text(entity.name)
   }
 }
 
