@@ -18,6 +18,8 @@ const drawArraw = () => {
 }
 
 const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
+  let isDraw = false
+  edges = Array.from(new Set(edges))
   edges.forEach(item => {
     let id = ''
     if (!item.fromId) {
@@ -32,8 +34,12 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
     let toY = container?.select('#id' + item.toId).attr('y') || 0
 
     if (item.fromId.includes('asset') && !item.fromId.includes('field') && item.toId.includes('asset_field')) {
-      toX = container?.select('#id' + item.toId).attr('fieldX') || 0
-      toY = +toY + 50
+      item.isDraw = isDraw
+      if (!isDraw) {
+        toX = container?.select('#id' + item.toId).attr('fieldX') || 0
+        toY = +toY + 50
+        isDraw = true
+      }
     } else if (item.fromId.includes('asset_field') && item.toId.includes('property')) {
       fromX = +fromX + 12
       fromY = + fromY + 100
@@ -52,12 +58,14 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
     let midX = (+fromX + +toX) / 2
     let midY = (+fromY + +toY) / 2
 
-    container?.insert('path', ':first-child')
-      .attr('d', 'M ' + fromX + ' ' + fromY + ' L ' + midX + ' ' + midY + ' L ' + toX + ' ' + toY)
-      .attr('stroke', '#84ADF8')
-      .attr('stroke-width', '1px')
-      .attr('marker-mid', 'url(#arrow)')
-      .classed(id, true)
+    if (!item.isDraw) {
+      container?.insert('path', ':first-child')
+        .attr('d', 'M ' + fromX + ' ' + fromY + ' L ' + midX + ' ' + midY + ' L ' + toX + ' ' + toY)
+        .attr('stroke', '#84ADF8')
+        .attr('stroke-width', '1px')
+        .attr('marker-mid', 'url(#arrow)')
+        .classed(id, true)
+    }
   })
 }
 
