@@ -25,7 +25,7 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
     if (!item.fromId) {
       item.fromId = 'null'
     }
-    if (!item.toId || item.toId === '000001002') {
+    if (!item.toId) {
       item.toId = 'null'
     }
     let fromX = container?.select('#id' + item.fromId).attr('x') || 0
@@ -70,7 +70,7 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
 }
 
 const isShowLine = (isShow: boolean) => {
-  d3.selectAll('.show').style('display', isShow ? 'block' : 'none')
+  d3.selectAll('.show').transition().style('display', isShow ? 'block' : 'none').duration(5000)
 }
 
 // const drawRectLine = (container: D3CANVAS, startPoint: POINT, endPoint: Point) => {
