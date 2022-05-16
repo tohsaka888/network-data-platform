@@ -20,6 +20,7 @@ function App() {
     terminology: [],
     property: [],
     assetField: [],
+    edges: [],
   });
   useEffect(() => {
     window.addEventListener("resize", () => {
