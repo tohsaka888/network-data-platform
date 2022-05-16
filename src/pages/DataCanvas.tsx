@@ -3,19 +3,14 @@ import { Layout, Tag } from "antd";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
-import {
-  drawArraw,
-  // drawHorizontalLine,
-  drawLine,
-} from "../d3_components/line";
+import { drawArraw, drawLine } from "../d3_components/line";
 import {
   createPoint,
   createPointInfo,
   createRect,
 } from "../d3_components/point";
-import { D3CANVAS } from "../d3_components/type";
+import { D3CANVAS } from "../type";
 import { DATA } from "../type";
-// import { Entity } from "../mock/getData";
 import { CanvasArea, MainCanvas, TypeArea } from "./DataCancas.style";
 
 type Props = {
@@ -117,7 +112,6 @@ function DataCanvas({
     (x: number, y: number) => {
       let initX = x + (24 * 100) / containerWidth;
       let initY = y;
-      console.log(codeInfo);
       codeInfo.forEach((item) => {
         createRect(
           containerRef.current,
