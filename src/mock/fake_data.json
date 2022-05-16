@@ -1,0 +1,271 @@
+{
+  "errorCode": "200",
+  "errorMessage": "操作成功",
+  "success": true,
+  "data": {
+    "entities": [
+      {
+        "id": "asset3060101801134112768",
+        "name": "测试图谱",
+        "label": "asset"
+      },
+      {
+        "id": "000001002",
+        "name": "市公安局",
+        "label": "department",
+        "x": 360,
+        "y": 67.36
+      },
+      {
+        "id": "40",
+        "name": "数据源2",
+        "label": "database",
+        "x": 360,
+        "y": 348.02666666666664
+      },
+      {
+        "id": "null",
+        "name": "item",
+        "label": "table",
+        "x": 360,
+        "y": 628.6933333333334
+      },
+      {
+        "id": "asset_field3060101801134112769",
+        "name": "姓名",
+        "label": "assetfield",
+        "x": 744,
+        "y": 302.6
+      },
+      {
+        "id": "asset_field3060101801134112770",
+        "name": "年龄",
+        "label": "assetfield",
+        "x": 768,
+        "y": 302.6
+      },
+      {
+        "id": "asset_field3060101801134112771",
+        "name": "家庭住址",
+        "label": "assetfield",
+        "x": 792.0000000000001,
+        "y": 302.6
+      },
+      {
+        "id": "asset_field3060101801134112772",
+        "name": "联系电话",
+        "label": "assetfield",
+        "x": 816.0000000000001,
+        "y": 302.6
+      },
+      {
+        "id": "asset_field3060101801134112773",
+        "name": "户籍地址",
+        "label": "assetfield",
+        "x": 840.0000000000002,
+        "y": 302.6
+      },
+      {
+        "id": "model3058461587483181059",
+        "name": "模型1",
+        "label": "model",
+        "x": 744,
+        "y": 715.6999999999999
+      },
+      {
+        "id": "property3058461587483181062",
+        "name": "性别",
+        "label": "property",
+        "x": 732,
+        "y": 563.1
+      },
+      {
+        "id": "property3058461587483181063",
+        "name": "出生地",
+        "label": "property",
+        "x": 756,
+        "y": 563.1
+      },
+      {
+        "id": "data_meta3058781854604591108",
+        "name": "测试1",
+        "label": "datameta",
+        "x": 978.0000000000002,
+        "y": 92.1
+      },
+      {
+        "id": "codeinfo3058380292342169617",
+        "name": "江苏",
+        "label": "codeinfo",
+        "x": 792.0000000000001,
+        "y": 92.1
+      },
+      {
+        "id": "codeinfo3059889320511864832",
+        "name": "未发布",
+        "label": "codeinfo",
+        "x": 816.0000000000001,
+        "y": 92.1
+      },
+      {
+        "id": "terminology3058380292342169621",
+        "name": "常住人口",
+        "label": "terminology",
+        "x": 630,
+        "y": 92.1
+      }
+    ],
+    "edges": [
+      {
+        "fromId": "asset3060101801134112768",
+        "toId": "000001002",
+        "name": null
+      },
+      {
+        "fromId": "40",
+        "toId": "asset3060101801134112768",
+        "name": null
+      },
+      {
+        "fromId": "asset3060101801134112768",
+        "toId": "null",
+        "name": null
+      },
+      {
+        "fromId": "asset3060101801134112768",
+        "toId": "asset_field3060101801134112769",
+        "name": null,
+        "isDraw": false
+      },
+      {
+        "fromId": "asset3060101801134112768",
+        "toId": "asset_field3060101801134112770",
+        "name": null,
+        "isDraw": true
+      },
+      {
+        "fromId": "asset3060101801134112768",
+        "toId": "asset_field3060101801134112771",
+        "name": null,
+        "isDraw": true
+      },
+      {
+        "fromId": "asset3060101801134112768",
+        "toId": "asset_field3060101801134112772",
+        "name": null,
+        "isDraw": true
+      },
+      {
+        "fromId": "asset3060101801134112768",
+        "toId": "asset_field3060101801134112773",
+        "name": null,
+        "isDraw": true
+      },
+      {
+        "fromId": "asset_field3060101801134112769",
+        "toId": "property3058461587483181062",
+        "name": null
+      },
+      {
+        "fromId": "model3058461587483181059",
+        "toId": "property3058461587483181062",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112770",
+        "toId": "property3058461587483181062",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112773",
+        "toId": "property3058461587483181062",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112772",
+        "toId": "property3058461587483181063",
+        "name": null
+      },
+      {
+        "fromId": "model3058461587483181059",
+        "toId": "property3058461587483181063",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112769",
+        "toId": "data_meta3058781854604591108",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112770",
+        "toId": "data_meta3058781854604591108",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112771",
+        "toId": "data_meta3058781854604591108",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112772",
+        "toId": "data_meta3058781854604591108",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112773",
+        "toId": "data_meta3058781854604591108",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112769",
+        "toId": "codeinfo3059889320511864832",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112770",
+        "toId": "codeinfo3058380292342169617",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112771",
+        "toId": "codeinfo3058380292342169617",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112772",
+        "toId": "codeinfo3058380292342169617",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112773",
+        "toId": "codeinfo3059889320511864832",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112769",
+        "toId": "terminology3058380292342169621",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112770",
+        "toId": "terminology3058380292342169621",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112771",
+        "toId": "terminology3058380292342169621",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112772",
+        "toId": "terminology3058380292342169621",
+        "name": null
+      },
+      {
+        "fromId": "asset_field3060101801134112773",
+        "toId": "terminology3058380292342169621",
+        "name": null
+      }
+    ]
+  }
+}
