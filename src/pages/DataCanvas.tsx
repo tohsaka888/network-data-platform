@@ -64,15 +64,17 @@ function DataCanvas({
 
   const startPoint = useMemo(
     () => ({
-      x: 0.2 * containerWidth,
+      x: 0.3 * containerWidth,
       y: 0.3 * containerHeight + 50,
+      initX: 30,
+      initY: 30,
     }),
     [containerHeight, containerWidth]
   );
 
   const createDefaultPoints = useCallback(() => {
-    let initX = 5;
-    let initY = 5;
+    let initX = startPoint.initX - 10;
+    let initY = 8;
     let unit = 100 / (defaultPoint.length || 0);
     defaultPoint?.forEach((item) => {
       let x = (initX / 100) * containerWidth;
@@ -85,7 +87,7 @@ function DataCanvas({
       createPointInfo(
         containerRef.current,
         (initX / 100) * containerWidth,
-        (initY / 100) * containerHeight + 30,
+        (initY / 100) * containerHeight + 35,
         item,
         "#000"
       );
@@ -93,10 +95,10 @@ function DataCanvas({
       item.y = (initY / 100) * containerHeight;
       initY += unit;
     });
-  }, [containerHeight, containerWidth, defaultPoint]);
+  }, [containerHeight, containerWidth, defaultPoint, startPoint.initX]);
 
   const createFields = useCallback(() => {
-    let initX = 30;
+    let initX = startPoint.initX + 10;
     let initY = 30;
     showButtonRef.current = createRect(
       containerRef.current,
@@ -118,13 +120,13 @@ function DataCanvas({
         (initY / 100) * containerHeight,
         "rect-purple",
         item,
-        0.3 * containerWidth
+        (startPoint.initX + 10) / 100 * containerWidth
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight + 50;
       initX += (24 * 100) / containerWidth;
     });
-  }, [assetField, containerWidth, containerHeight]);
+  }, [startPoint.initX, containerWidth, containerHeight, assetField]);
 
   const createCodeInfo = useCallback(
     (x: number, y: number) => {
@@ -191,7 +193,7 @@ function DataCanvas({
   );
 
   const createTerminology = useCallback(() => {
-    let initX = 30;
+    let initX = startPoint.initX + 5;
     let initY = 5;
     terminology.forEach((item) => {
       createRect(
@@ -211,18 +213,19 @@ function DataCanvas({
       // );
       initX += (24 * 100) / containerWidth;
     });
-    let dataInitX = createCodeInfo(initX, initY);
-    createDataMeta(dataInitX, initY);
+    let dataInitX = createCodeInfo(initX + 5, 5);
+    createDataMeta(dataInitX + 5, initY);
   }, [
     containerHeight,
     containerWidth,
     createCodeInfo,
     createDataMeta,
+    startPoint.initX,
     terminology,
   ]);
 
   const createModelFields = useCallback(
-    (initX = 30) => {
+    (initX = startPoint.initX + 10) => {
       let initY = 55;
       property.forEach((item) => {
         createRect(
@@ -244,12 +247,12 @@ function DataCanvas({
       });
       return initX + (24 * 100) / containerWidth;
     },
-    [containerHeight, containerWidth, property]
+    [containerHeight, containerWidth, property, startPoint.initX]
   );
 
   // 创建model
   const createModel = useCallback(() => {
-    let propertyX = 30;
+    let propertyX = startPoint.initX + 10;
     let initY = 85;
     let initX = propertyX + (24 * 100) / containerWidth;
     model.forEach((item) => {
@@ -270,7 +273,7 @@ function DataCanvas({
       createPointInfo(
         containerRef.current,
         (initX / 100) * containerWidth,
-        (initY / 100) * containerHeight + 30,
+        (initY / 100) * containerHeight + 35,
         item,
         "#000"
       );
@@ -290,6 +293,7 @@ function DataCanvas({
     createModelFields,
     model,
     property.length,
+    startPoint.initX,
   ]);
 
   useEffect(() => {
@@ -320,7 +324,7 @@ function DataCanvas({
       createPointInfo(
         containerRef.current,
         startPoint.x,
-        startPoint.y + 30,
+        startPoint.y + 35,
         centerPoint[0],
         "#000"
       );
