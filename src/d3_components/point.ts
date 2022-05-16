@@ -26,11 +26,15 @@ const createRect = (container: D3CANVAS, x: number, y: number, color: string, en
       .attr('fieldX', fieldX || 0)
       .attr('width', '24px')
       .attr('height', '100px')
+    if (entity.id.includes('asset_field')) {
+      rectContainer?.classed('show', true)
+    }
     rectContainer
       ?.append('xhtml:div')
       .attr('xmlns', 'http://www.w3.org/1999/xhtml')
       .classed(color, true)
       .text(entity.name)
+    return rectContainer
   }
 }
 
