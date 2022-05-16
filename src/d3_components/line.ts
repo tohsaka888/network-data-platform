@@ -19,6 +19,7 @@ const drawArraw = () => {
 
 const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
   edges.forEach(item => {
+    let id = ''
     if (!item.fromId) {
       item.fromId = 'null'
     }
@@ -37,11 +38,13 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
       fromX = +fromX + 12
       fromY = + fromY + 100
       toX = +toX + 12
+      id = 'show'
     } else if (item.fromId.includes('asset_field') && (item.toId.includes('terminology') || item.toId.includes('codeinfo') || item.toId.includes('data_meta'))) {
       fromX = +fromX + 12
       fromY = + fromY
       toX = +toX + 12
       toY = +toY + 100
+      id = 'show'
     } else if (item.fromId.includes('model') && item.toId.includes('property')) {
       toX = +toX + 12
       toY = + toY + 100
@@ -54,7 +57,12 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
       .attr('stroke', '#84ADF8')
       .attr('stroke-width', '1px')
       .attr('marker-mid', 'url(#arrow)')
+      .classed(id, true)
   })
+}
+
+const isShowLine = (isShow: boolean) => {
+  d3.selectAll('.show').style('display', isShow ? 'block' : 'none')
 }
 
 // const drawRectLine = (container: D3CANVAS, startPoint: POINT, endPoint: Point) => {
@@ -78,4 +86,4 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
 //     .attr('stroke-width', '1px')
 // }
 
-export { drawLine, drawArraw }
+export { drawLine, drawArraw, isShowLine }
