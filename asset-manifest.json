@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/network-data-platform/static/css/main.e36eaae8.css",
+    "main.js": "/network-data-platform/static/js/main.dce927ab.js",
+    "index.html": "/network-data-platform/index.html",
+    "main.e36eaae8.css.map": "/network-data-platform/static/css/main.e36eaae8.css.map",
+    "main.dce927ab.js.map": "/network-data-platform/static/js/main.dce927ab.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e36eaae8.css",
+    "static/js/main.dce927ab.js"
+  ]
+}
