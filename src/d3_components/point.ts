@@ -11,7 +11,7 @@ const createPoint = (container: D3CANVAS, x: number, y: number, color: string, e
       ?.append('circle')
       .attr('cx', x)
       .attr('cy', y)
-      .attr('r', 20)
+      .attr('r', 25)
       .attr('fill', color)
   }
 }
