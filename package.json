@@ -15,9 +15,7 @@
     "@types/styled-components": "^5.1.25",
     "antd": "^4.20.3",
     "d3": "^7.4.4",
-    "deploy": "gh-pages -d build",
     "gh-pages": "^4.0.0",
-    "predeploy": "npm run build",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
@@ -29,9 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
