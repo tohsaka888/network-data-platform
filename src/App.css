@@ -46,11 +46,11 @@
 }
 
 .rect-green {
-  height: 100px;
-  width: 24px;
+  height: 38px;
+  width: 80px;
   background-color: #c7e1cb;
   border: 1px solid #99be9f;
-  writing-mode: vertical-rl;
+  /* writing-mode: vertical-rl; */
   color: #22602a;
   cursor: pointer;
 }
@@ -61,11 +61,11 @@
 }
 
 .rect-blue {
-  height: 100px;
-  width: 24px;
+  height: 38px;
+  width: 80px;
   background-color: #b2cdff;
   border: 1px solid #93b9fe;
-  writing-mode: vertical-rl;
+  /* writing-mode: vertical-rl; */
   color: #0a4abe;
   cursor: pointer;
 }
@@ -76,11 +76,11 @@
 }
 
 .rect-purple {
-  height: 100px;
-  width: 24px;
+  height: 38px;
+  width: 80px;
   background-color: #d7d4ff;
   border: 1px solid #a6a0ff;
-  writing-mode: vertical-rl;
+  /* writing-mode: vertical-rl; */
   color: #3c34a9;
   cursor: pointer;
 }
