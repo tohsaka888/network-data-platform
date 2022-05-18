@@ -53,6 +53,10 @@
   /* writing-mode: vertical-rl; */
   color: #22602a;
   cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rect-green:hover {
@@ -68,6 +72,10 @@
   /* writing-mode: vertical-rl; */
   color: #0a4abe;
   cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rect-blue:hover {
@@ -83,6 +91,10 @@
   /* writing-mode: vertical-rl; */
   color: #3c34a9;
   cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rect-purple:hover {
