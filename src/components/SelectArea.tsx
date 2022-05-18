@@ -5,7 +5,7 @@ import { SelectAreaContainer } from "../pages/DataCancas.style";
 
 const items: MenuProps["items"] = [
   {
-    label: "图谱",
+    label: "血缘",
     key: "graph",
     icon: <AreaChartOutlined />,
   },
