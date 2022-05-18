@@ -20,6 +20,7 @@ export type EDGE = {
   toId: string;
   name: string | null;
   isDraw?: boolean;
+  showArraw?: boolean;
 }
 
 export type DATA = {
