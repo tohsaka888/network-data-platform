@@ -50,6 +50,8 @@ function App() {
               <DataCanvas
                 screenHeight={screenHeight}
                 screenWidth={screenWidth}
+                rectHeight={38}
+                rectWidth={80}
                 {...data}
               />
             )}
