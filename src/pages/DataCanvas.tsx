@@ -237,12 +237,6 @@ function DataCanvas({
         );
         item.x = (initX / 100) * containerWidth + 12;
         item.y = (initY / 100) * containerHeight + 100;
-        // createRectInfo(
-        //   containerRef.current,
-        //   initX + 2 + "%",
-        //   initY + 2 + "%",
-        //   item.name
-        // );
         initX += (24 * 100) / containerWidth;
       });
       return initX + (24 * 100) / containerWidth;
