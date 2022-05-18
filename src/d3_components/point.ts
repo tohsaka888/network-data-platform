@@ -24,8 +24,8 @@ const createRect = (container: D3CANVAS, x: number, y: number, color: string, en
       .attr('x', x)
       .attr('y', y)
       .attr('fieldX', fieldX || 0)
-      .attr('width', '24px')
-      .attr('height', '100px')
+      .attr('width', '80px')
+      .attr('height', '38px')
     if (entity.id.includes('asset_field')) {
       rectContainer?.classed('show', true)
     }
