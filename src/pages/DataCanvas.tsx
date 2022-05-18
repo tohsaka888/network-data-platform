@@ -10,7 +10,7 @@ import React, {
 import HiddenArea from "../components/HiddenArea";
 import SelectArea from "../components/SelectArea";
 import { createCanvas } from "../d3_components/canvas";
-import { drawArraw, drawLine } from "../d3_components/line";
+import { drawArraw, drawLine, drawStaticLine } from "../d3_components/line";
 import {
   createPoint,
   createPointInfo,
@@ -23,6 +23,8 @@ import { CanvasArea, MainCanvas, TypeArea } from "./DataCancas.style";
 type Props = {
   screenWidth: number;
   screenHeight: number;
+  rectWidth: number;
+  rectHeight: number;
 } & DATA;
 
 function DataCanvas({
@@ -37,6 +39,8 @@ function DataCanvas({
   assetField,
   defaultPoint,
   edges,
+  rectHeight,
+  rectWidth,
 }: Props) {
   const { Content } = Layout;
 
@@ -44,6 +48,8 @@ function DataCanvas({
   const containerRef = useRef<D3CANVAS>();
   const containerWidth = screenWidth - 248;
   const containerHeight = screenHeight - 64 - 64 - 40 - 16 - 54;
+  const unitY = (rectHeight / containerHeight) * 100;
+  const unitX = (rectWidth / containerWidth) * 100;
   const showButtonRef = useRef<
     d3.Selection<SVGForeignObjectElement, unknown, null, undefined> | undefined
   >();
@@ -65,9 +71,9 @@ function DataCanvas({
   const startPoint = useMemo(
     () => ({
       x: 0.3 * containerWidth,
-      y: 0.3 * containerHeight + 50,
+      y: 0.5 * containerHeight,
       initX: 30,
-      initY: 30,
+      initY: 50,
     }),
     [containerHeight, containerWidth]
   );
@@ -99,7 +105,7 @@ function DataCanvas({
 
   const createFields = useCallback(() => {
     let initX = startPoint.initX + 10;
-    let initY = 30;
+    let initY = startPoint.initY - unitY / 2;
     showButtonRef.current = createRect(
       containerRef.current,
       (initX / 100) * containerWidth,
@@ -112,7 +118,7 @@ function DataCanvas({
       }
     );
     setShow(true);
-    initX += (24 * 100) / containerWidth;
+    initX += unitX;
     assetField?.forEach((item) => {
       createRect(
         containerRef.current,
@@ -120,30 +126,26 @@ function DataCanvas({
         (initY / 100) * containerHeight,
         "rect-purple",
         item,
-        (startPoint.initX + 10) / 100 * containerWidth
+        ((startPoint.initX + 10) / 100) * containerWidth
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight + 50;
-      initX += (24 * 100) / containerWidth;
+      initX += unitX;
     });
-  }, [startPoint.initX, containerWidth, containerHeight, assetField]);
+  }, [
+    startPoint.initX,
+    startPoint.initY,
+    unitY,
+    containerWidth,
+    containerHeight,
+    unitX,
+    assetField,
+  ]);
 
   const createCodeInfo = useCallback(
     (x: number, y: number) => {
-      let initX = x + (24 * 100) / containerWidth;
+      let initX = x + unitX;
       let initY = y;
-      createRect(
-        containerRef.current,
-        (initX / 100) * containerWidth,
-        (initY / 100) * containerHeight,
-        "rect-green",
-        {
-          name: "代码表集",
-          id: "codeInfo",
-          label: "",
-        }
-      );
-      initX += (24 * 100) / containerWidth;
       codeInfo.forEach((item) => {
         createRect(
           containerRef.current,
@@ -152,30 +154,18 @@ function DataCanvas({
           "rect-green",
           item
         );
-        item.x = (initX / 100) * containerWidth;
-        item.y = (initY / 100) * containerHeight + 50;
-        initX += (24 * 100) / containerWidth;
+        item.x = (initX / 100) * containerWidth + rectWidth / 2;
+        item.y = (initY / 100) * containerHeight;
+        initX += unitX;
       });
       return initX;
     },
-    [codeInfo, containerHeight, containerWidth]
+    [codeInfo, containerHeight, containerWidth, rectWidth, unitX]
   );
 
   const createDataMeta = useCallback(
     (initX: number, initY: number) => {
-      initX += (24 * 100) / containerWidth;
-      createRect(
-        containerRef.current,
-        (initX / 100) * containerWidth,
-        (initY / 100) * containerHeight,
-        "rect-blue",
-        {
-          name: "数据元集",
-          id: "datameta",
-          label: "",
-        }
-      );
-      initX += (24 * 100) / containerWidth;
+      initX += unitX;
       datameta.forEach((item) => {
         createRect(
           containerRef.current,
@@ -184,17 +174,17 @@ function DataCanvas({
           "rect-blue",
           item
         );
-        item.x = (initX / 100) * containerWidth;
-        item.y = (initY / 100) * containerHeight + 50;
-        initX += (24 * 100) / containerWidth;
+        item.x = (initX / 100) * containerWidth + rectWidth / 2;
+        item.y = (initY / 100) * containerHeight;
+        initX += unitX;
       });
     },
-    [containerHeight, containerWidth, datameta]
+    [containerHeight, containerWidth, datameta, rectWidth, unitX]
   );
 
   const createTerminology = useCallback(() => {
     let initX = startPoint.initX + 5;
-    let initY = 5;
+    let initY = startPoint.initY - 1.5 * unitX - 12;
     terminology.forEach((item) => {
       createRect(
         containerRef.current,
@@ -203,30 +193,27 @@ function DataCanvas({
         "rect-blue",
         item
       );
-      item.x = (initX / 100) * containerWidth;
-      item.y = (initY / 100) * containerHeight + 50;
-      // createRectInfo(
-      //   containerRef.current,
-      //   initX + 2 + "%",
-      //   initY + 2 + "%",
-      //   item.name
-      // );
-      initX += (24 * 100) / containerWidth;
+      item.x = (initX / 100) * containerWidth + rectWidth / 2;
+      item.y = (initY / 100) * containerHeight;
+      initX += unitX;
     });
-    let dataInitX = createCodeInfo(initX + 5, 5);
+    let dataInitX = createCodeInfo(initX + 5, initY);
     createDataMeta(dataInitX + 5, initY);
   }, [
     containerHeight,
     containerWidth,
     createCodeInfo,
     createDataMeta,
+    rectWidth,
     startPoint.initX,
+    startPoint.initY,
     terminology,
+    unitX,
   ]);
 
   const createModelFields = useCallback(
     (initX = startPoint.initX + 10) => {
-      let initY = 55;
+      let initY = startPoint.initY + unitY / 2 + 12;
       property.forEach((item) => {
         createRect(
           containerRef.current,
@@ -237,20 +224,28 @@ function DataCanvas({
         );
         item.x = (initX / 100) * containerWidth + 12;
         item.y = (initY / 100) * containerHeight + 100;
-        initX += (24 * 100) / containerWidth;
+        initX += unitX;
       });
-      return initX + (24 * 100) / containerWidth;
+      return initX + unitX;
     },
-    [containerHeight, containerWidth, property, startPoint.initX]
+    [
+      containerHeight,
+      containerWidth,
+      property,
+      startPoint.initX,
+      startPoint.initY,
+      unitX,
+      unitY,
+    ]
   );
 
   // 创建model
   const createModel = useCallback(() => {
     let propertyX = startPoint.initX + 10;
-    let initY = 85;
-    let initX = propertyX + (24 * 100) / containerWidth;
+    let initY = startPoint.initY + 2 * unitY + 24;
+    let initX = propertyX + unitX;
     model.forEach((item) => {
-      initX = propertyX + ((24 * 100) / containerWidth) * (property.length / 2);
+      initX = propertyX + unitX * (property.length / 2);
       createPoint(
         containerRef.current,
         (initX / 100) * containerWidth,
@@ -274,13 +269,8 @@ function DataCanvas({
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight;
       propertyX = createModelFields(propertyX);
-      // drawRectLine(containerRef.current, startPoint, datametaFields[0]);
-      // drawHorizontalLine(containerRef.current, datametaFields);
-      // drawLine(containerRef.current, item, item.childEntities || []);
     });
     return { initX, initY, propertyX };
-    // createDatameta(initX, initY);
-    // createDatametaProperties(propertyX, 55);
   }, [
     containerHeight,
     containerWidth,
@@ -288,7 +278,175 @@ function DataCanvas({
     model,
     property.length,
     startPoint.initX,
+    startPoint.initY,
+    unitX,
+    unitY,
   ]);
+
+  const createTerm = useCallback(() => {
+    // let propertyX = startPoint.initX;
+    let initY = startPoint.initY - 3 * unitY - 24;
+    let initX = startPoint.initX + 5;
+
+    createPoint(
+      containerRef.current,
+      (initX / 100) * containerWidth + rectWidth / 2,
+      (initY / 100) * containerHeight,
+      "#3276F3",
+      {
+        name: "术语",
+        id: "model",
+        label: "术语",
+      }
+    );
+    drawStaticLine(
+      containerRef.current,
+      {
+        x: (initX / 100) * containerWidth + rectWidth / 2,
+        y: (initY / 100) * containerHeight,
+        label: "",
+        name: "",
+        id: "",
+      },
+      terminology
+    );
+    createPointInfo(
+      containerRef.current,
+      (initX / 100) * containerWidth + rectWidth / 2,
+      (initY / 100) * containerHeight,
+      {
+        name: "术语",
+        id: "model",
+        label: "术语",
+      }
+    );
+    createPointInfo(
+      containerRef.current,
+      (initX / 100) * containerWidth + rectWidth / 2,
+      (initY / 100) * containerHeight + 35,
+      {
+        name: "术语",
+        id: "model",
+        label: "术语",
+      },
+      "#000"
+    );
+    initX += unitX;
+    return { initX, initY };
+  }, [
+    containerHeight,
+    containerWidth,
+    rectWidth,
+    startPoint.initX,
+    startPoint.initY,
+    terminology,
+    unitX,
+    unitY,
+  ]);
+
+  const createCode = useCallback(
+    (initX: number, initY: number) => {
+      initX += unitX + (codeInfo.length / 2) * unitX;
+      createPoint(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
+        "#3276F3",
+        {
+          name: "代码",
+          id: "code",
+          label: "代码",
+        }
+      );
+      drawStaticLine(
+        containerRef.current,
+        {
+          x: (initX / 100) * containerWidth,
+          y: (initY / 100) * containerHeight,
+          label: "",
+          name: "",
+          id: "",
+        },
+        codeInfo
+      );
+      createPointInfo(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
+        {
+          name: "代码",
+          id: "code",
+          label: "代码",
+        }
+      );
+      createPointInfo(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight + 35,
+        {
+          name: "代码",
+          id: "code",
+          label: "代码",
+        },
+        "#000"
+      );
+      initX += unitX;
+      return { initX, initY };
+    },
+    [codeInfo, containerHeight, containerWidth, unitX]
+  );
+
+  const createData = useCallback(
+    (initX: number, initY: number) => {
+      initX += unitX + (unitX * datameta.length) / 2 + 0.5 * unitX;
+      createPoint(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
+        "#3276F3",
+        {
+          name: "数据",
+          id: "data",
+          label: "数据",
+        }
+      );
+      drawStaticLine(
+        containerRef.current,
+        {
+          x: (initX / 100) * containerWidth,
+          y: (initY / 100) * containerHeight,
+          label: "",
+          name: "",
+          id: "",
+        },
+        datameta
+      );
+      createPointInfo(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight,
+        {
+          name: "数据",
+          id: "data",
+          label: "数据",
+        }
+      );
+      createPointInfo(
+        containerRef.current,
+        (initX / 100) * containerWidth,
+        (initY / 100) * containerHeight + 35,
+        {
+          name: "数据",
+          id: "data",
+          label: "数据",
+        },
+        "#000"
+      );
+
+      return { initX, initY };
+    },
+    [containerHeight, containerWidth, datameta, unitX]
+  );
 
   useEffect(() => {
     containerRef.current?.selectAll("*").remove();
@@ -326,7 +484,9 @@ function DataCanvas({
       createFields();
       createTerminology();
       createModel();
-      // createDatameta(pos.initX, pos.initY, pos.propertyX);
+      let prop = createTerm();
+      prop = createCode(prop.initX + 5, prop.initY);
+      createData(prop.initX + 5, prop.initY);
     }
   }, [
     createFields,
@@ -336,6 +496,9 @@ function DataCanvas({
     createModel,
     centerPoint,
     createDefaultPoints,
+    createCode,
+    createTerm,
+    createData,
   ]);
 
   useEffect(() => {
