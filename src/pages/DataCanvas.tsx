@@ -1,5 +1,5 @@
 import { Layout, Tag } from "antd";
-// import * as d3 from "d3";
+import * as d3 from "d3";
 import React, {
   useCallback,
   useEffect,
@@ -50,6 +50,7 @@ function DataCanvas({
   const containerHeight = screenHeight - 64 - 64 - 40 - 16 - 54;
   const unitY = (rectHeight / containerHeight) * 100;
   const unitX = (rectWidth / containerWidth) * 100;
+  const [size, setSize] = useState<number>(1);
   const showButtonRef = useRef<
     d3.Selection<SVGForeignObjectElement, unknown, null, undefined> | undefined
   >();
@@ -526,6 +527,11 @@ function DataCanvas({
   useEffect(() => {
     drawArraw();
   }, []);
+
+  useEffect(() => {
+    console.log(size)
+    d3.selectAll("svg").select("g").attr("transform", `scale(${size})`);
+  }, [size]);
   return (
     <Content style={{ padding: "0px 24px" }}>
       <SelectArea />
@@ -539,6 +545,14 @@ function DataCanvas({
           ref={(ref) => {
             if (ref) {
               canvasRef.current = ref;
+            }
+          }}
+          onWheel={(e) => {
+            console.log(e.deltaY)
+            if (e.deltaY > 0) {
+              setSize(size - 0.1);
+            } else {
+              setSize(size + 0.1);
             }
           }}
         />
