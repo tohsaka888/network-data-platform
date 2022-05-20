@@ -67,6 +67,7 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
         .attr('stroke', '#84ADF8')
         .attr('stroke-width', '1px')
         .attr('marker-mid', 'url(#arrow)')
+        .attr('id', 'id' + item.fromId + item.toId)
         .classed(id, true)
     }
 
@@ -75,6 +76,7 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
         .attr('d', 'M ' + fromX + ' ' + fromY + ' L ' + toX + ' ' + toY)
         .attr('stroke', '#84ADF8')
         .attr('stroke-width', '1px')
+        .attr('id', 'id' + item.fromId + item.toId)
         .classed(id, true)
     }
   })
@@ -101,4 +103,13 @@ const drawStaticLine = (container: D3CANVAS, startPoint: Entity, endPoints: Enti
   })
 }
 
-export { drawLine, drawArraw, isShowLine, drawStaticLine }
+const highLightLine = (container: D3CANVAS, edges: EDGE[], id: string, isActive: boolean) => {
+  edges.forEach((edge) => {
+    if (edge.fromId === id || edge.toId === id) {
+      const line = container?.select(`#id${edge.fromId + edge.toId}`);
+      line?.attr("stroke", !isActive ? '#84ADF8' : 'red');
+    }
+  });
+}
+
+export { drawLine, drawArraw, isShowLine, drawStaticLine, highLightLine }
