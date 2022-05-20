@@ -35,7 +35,7 @@ const formatData = (data: { entities: Entity[], edges: EDGE[] }) => {
 
 export const getData = async () => {
   try {
-    const res = await fetch(`http://172.168.30.12:8010/api/network/asset/getAssetGraph?id=8`)
+    const res = await fetch(`http://172.168.30.12:8010/api/network/asset/getAssetGraph?id=6`)
     const data = await res.json()
     return formatData(data.data)
   } catch (error: any) {

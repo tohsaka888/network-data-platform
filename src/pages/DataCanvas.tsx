@@ -342,7 +342,7 @@ function DataCanvas({
 
     createPoint(
       containerRef.current,
-      (initX / 100) * containerWidth + rectWidth / 2,
+      (initX / 100) * containerWidth + (rectWidth / 2) * terminology.length,
       (initY / 100) * containerHeight,
       "#3276F3",
       {
@@ -355,7 +355,8 @@ function DataCanvas({
     drawStaticLine(
       containerRef.current,
       {
-        x: (initX / 100) * containerWidth + rectWidth / 2,
+        x:
+          (initX / 100) * containerWidth + (rectWidth / 2) * terminology.length,
         y: (initY / 100) * containerHeight,
         label: "",
         name: "",
@@ -365,7 +366,7 @@ function DataCanvas({
     );
     createPointInfo(
       containerRef.current,
-      (initX / 100) * containerWidth + rectWidth / 2,
+      (initX / 100) * containerWidth + (rectWidth / 2) * terminology.length,
       (initY / 100) * containerHeight,
       {
         name: "术语",
@@ -375,7 +376,7 @@ function DataCanvas({
     );
     createPointInfo(
       containerRef.current,
-      (initX / 100) * containerWidth + rectWidth / 2,
+      (initX / 100) * containerWidth + (rectWidth / 2) * terminology.length,
       (initY / 100) * containerHeight + 35,
       {
         name: "术语",
@@ -384,7 +385,7 @@ function DataCanvas({
       },
       "#000"
     );
-    initX += unitX;
+    initX += unitX * terminology.length + 5 + unitX;
     return { initX, initY };
   }, [
     containerHeight,
@@ -400,7 +401,7 @@ function DataCanvas({
 
   const createCode = useCallback(
     (initX: number, initY: number) => {
-      initX += unitX + (datameta.length / 2) * unitX;
+      initX += (unitX * datameta.length) / 2;
       createPoint(
         containerRef.current,
         (initX / 100) * containerWidth,
@@ -445,7 +446,7 @@ function DataCanvas({
         },
         "#000"
       );
-      initX += unitX;
+      initX += unitX * datameta.length / 2 + 5 + unitX;
       return { initX, initY };
     },
     [containerHeight, containerWidth, datameta, edges, unitX]
@@ -453,7 +454,7 @@ function DataCanvas({
 
   const createData = useCallback(
     (initX: number, initY: number) => {
-      initX += unitX + (unitX * codeInfo.length) / 2 + 0.5 * unitX;
+      initX += (unitX * codeInfo.length) / 2;
       createPoint(
         containerRef.current,
         (initX / 100) * containerWidth,
@@ -542,8 +543,8 @@ function DataCanvas({
       createTerminology();
       createModel();
       let prop = createTerm();
-      prop = createCode(prop.initX + 5, prop.initY);
-      createData(prop.initX + 5, prop.initY);
+      prop = createCode(prop.initX, prop.initY);
+      createData(prop.initX, prop.initY);
     }
   }, [
     createFields,

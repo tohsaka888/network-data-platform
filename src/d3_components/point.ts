@@ -14,17 +14,19 @@ const createPoint = (container: D3CANVAS, x: number, y: number, color: string, e
       .on('mouseout', function () {
         highLightLine(container, edges, entity.id, false)
       })
-    if (entity.id.includes('terminology')) {
-      pointContainer?.classed('show', true)
-    }
-    if (entity.id.includes('model')) {
-      pointContainer?.classed('show', true)
-    }
-    if (entity.id.includes('data')) {
-      pointContainer?.classed('show', true)
-    }
-    if (entity.id.includes('code')) {
-      pointContainer?.classed('show', true)
+    if (entity.id) {
+      if (entity.id.includes('terminology')) {
+        pointContainer?.classed('show', true)
+      }
+      if (entity.id.includes('model')) {
+        pointContainer?.classed('show', true)
+      }
+      if (entity.id.includes('data')) {
+        pointContainer?.classed('show', true)
+      }
+      if (entity.id.includes('code')) {
+        pointContainer?.classed('show', true)
+      }
     }
     pointContainer
       ?.append('circle')
@@ -53,20 +55,22 @@ const createRect = (container: D3CANVAS, x: number, y: number, color: string, en
       .on('mouseout', function () {
         highLightLine(container, edges, entity.id, false)
       })
-    if (entity.id.includes('asset_field')) {
-      rectContainer?.classed('show', true)
-    }
-    if (entity.id.includes('codeinfo')) {
-      rectContainer?.classed('show', true)
-    }
-    if (entity.id.includes('data_meta')) {
-      rectContainer?.classed('show', true)
-    }
-    if (entity.id.includes('property')) {
-      rectContainer?.classed('show', true)
-    }
-    if (entity.id.includes('terminology')) {
-      rectContainer?.classed('show', true)
+    if (entity.id) {
+      if (entity.id.includes('asset_field')) {
+        rectContainer?.classed('show', true)
+      }
+      if (entity.id.includes('codeinfo')) {
+        rectContainer?.classed('show', true)
+      }
+      if (entity.id.includes('data_meta')) {
+        rectContainer?.classed('show', true)
+      }
+      if (entity.id.includes('property')) {
+        rectContainer?.classed('show', true)
+      }
+      if (entity.id.includes('terminology')) {
+        rectContainer?.classed('show', true)
+      }
     }
     rectContainer
       ?.append('xhtml:div')
@@ -91,17 +95,19 @@ const createPointInfo = (container: D3CANVAS, x: number, y: number, entity: Enti
       .attr('dominant-baseline', 'middle')
       .attr('fill', color || '#fff')
       .text(entity.name)
-    if (entity.id.includes('terminology')) {
-      text?.classed('show', true)
-    }
-    if (entity.id.includes('model')) {
-      text?.classed('show', true)
-    }
-    if (entity.id.includes('data')) {
-      text?.classed('show', true)
-    }
-    if (entity.id.includes('code')) {
-      text?.classed('show', true)
+    if (entity.id) {
+      if (entity.id.includes('terminology')) {
+        text?.classed('show', true)
+      }
+      if (entity.id.includes('model')) {
+        text?.classed('show', true)
+      }
+      if (entity.id.includes('data')) {
+        text?.classed('show', true)
+      }
+      if (entity.id.includes('code')) {
+        text?.classed('show', true)
+      }
     }
   }
 }
