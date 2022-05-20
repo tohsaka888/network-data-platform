@@ -57,6 +57,7 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
     } else if (item.fromId.includes('model') && item.toId.includes('property')) {
       toX = +toX + 40
       toY = + toY + 38
+      id = 'show'
     }
     let midX = (+fromX + +toX) / 2
     let midY = (+fromY + +toY) / 2
@@ -107,7 +108,7 @@ const highLightLine = (container: D3CANVAS, edges: EDGE[], id: string, isActive:
   edges.forEach((edge) => {
     if (edge.fromId === id || edge.toId === id) {
       const line = container?.select(`#id${edge.fromId + edge.toId}`);
-      line?.attr("stroke", !isActive ? '#84ADF8' : 'red');
+      line?.attr("stroke", !isActive ? '#84ADF8' : '#F28500');
     }
   });
 }

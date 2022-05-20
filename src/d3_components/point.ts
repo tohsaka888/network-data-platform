@@ -14,6 +14,18 @@ const createPoint = (container: D3CANVAS, x: number, y: number, color: string, e
       .on('mouseout', function () {
         highLightLine(container, edges, entity.id, false)
       })
+    if (entity.id.includes('terminology')) {
+      pointContainer?.classed('show', true)
+    }
+    if (entity.id.includes('model')) {
+      pointContainer?.classed('show', true)
+    }
+    if (entity.id.includes('data')) {
+      pointContainer?.classed('show', true)
+    }
+    if (entity.id.includes('code')) {
+      pointContainer?.classed('show', true)
+    }
     pointContainer
       ?.append('circle')
       .attr('cx', x)
@@ -48,6 +60,12 @@ const createRect = (container: D3CANVAS, x: number, y: number, color: string, en
     if (entity.id.includes('data_meta')) {
       rectContainer?.classed('show', true)
     }
+    if (entity.id.includes('property')) {
+      rectContainer?.classed('show', true)
+    }
+    if (entity.id.includes('terminology')) {
+      rectContainer?.classed('show', true)
+    }
     rectContainer
       ?.append('xhtml:div')
       .attr('xmlns', 'http://www.w3.org/1999/xhtml')
@@ -59,7 +77,7 @@ const createRect = (container: D3CANVAS, x: number, y: number, color: string, en
 
 const createPointInfo = (container: D3CANVAS, x: number, y: number, entity: Entity, color?: string) => {
   if (entity) {
-    container
+    const text = container
       ?.append('text')
       .attr('x', x)
       .attr('y', y)
@@ -71,6 +89,18 @@ const createPointInfo = (container: D3CANVAS, x: number, y: number, entity: Enti
       .attr('dominant-baseline', 'middle')
       .attr('fill', color || '#fff')
       .text(entity.name)
+    if (entity.id.includes('terminology')) {
+      text?.classed('show', true)
+    }
+    if (entity.id.includes('model')) {
+      text?.classed('show', true)
+    }
+    if (entity.id.includes('data')) {
+      text?.classed('show', true)
+    }
+    if (entity.id.includes('code')) {
+      text?.classed('show', true)
+    }
   }
 }
 
