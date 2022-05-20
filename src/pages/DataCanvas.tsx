@@ -51,9 +51,7 @@ function DataCanvas({
   const unitY = (rectHeight / containerHeight) * 100;
   const unitX = (rectWidth / containerWidth) * 100;
   const [size, setSize] = useState<number>(1);
-  const showButtonRef = useRef<
-    d3.Selection<SVGForeignObjectElement, unknown, null, undefined> | undefined
-  >();
+  const showButtonRef = useRef<D3CANVAS>();
   const [show, setShow] = useState<boolean>(false);
   const canvasDragEvent = useCallback(function (
     this: SVGSVGElement,
@@ -107,17 +105,57 @@ function DataCanvas({
   const createFields = useCallback(() => {
     let initX = startPoint.initX + 10;
     let initY = startPoint.initY - unitY / 2;
-    showButtonRef.current = createRect(
+    showButtonRef.current = createPoint(
       containerRef.current,
       (initX / 100) * containerWidth,
-      (initY / 100) * containerHeight,
-      "rect-field",
+      startPoint.y,
+      "#3276F3",
       {
         name: "字段",
         id: "field",
         label: "",
       },
       edges
+    );
+    createPointInfo(
+      containerRef.current,
+      (initX / 100) * containerWidth,
+      startPoint.y,
+      {
+        name: "字段",
+        id: "field",
+        label: "",
+      }
+    );
+    createPointInfo(
+      containerRef.current,
+      (initX / 100) * containerWidth,
+      startPoint.y + 35,
+      {
+        name: "字段",
+        id: "field",
+        label: "",
+      },
+      "#000"
+    );
+    drawStaticLine(
+      containerRef.current,
+      {
+        x: (initX / 100) * containerWidth,
+        y: startPoint.y,
+        label: "",
+        name: "",
+        id: "",
+      },
+      [
+        {
+          x: ((initX + unitX) / 100) * containerWidth,
+          y: startPoint.y,
+          label: "",
+          name: "",
+          id: assetField[0].id,
+        },
+      ]
     );
     setShow(true);
     initX += unitX;
@@ -138,12 +176,13 @@ function DataCanvas({
   }, [
     startPoint.initX,
     startPoint.initY,
+    startPoint.y,
     unitY,
     containerWidth,
-    containerHeight,
     edges,
     unitX,
     assetField,
+    containerHeight,
   ]);
 
   const createCodeInfo = useCallback(
@@ -529,7 +568,7 @@ function DataCanvas({
   }, []);
 
   useEffect(() => {
-    console.log(size)
+    console.log(size);
     d3.selectAll("svg").select("g").attr("transform", `scale(${size})`);
   }, [size]);
   return (
@@ -548,7 +587,7 @@ function DataCanvas({
             }
           }}
           onWheel={(e) => {
-            console.log(e.deltaY)
+            console.log(e.deltaY);
             if (e.deltaY > 0) {
               setSize(size - 0.1);
             } else {

@@ -32,7 +32,9 @@ const createPoint = (container: D3CANVAS, x: number, y: number, color: string, e
       .attr('cy', y)
       .attr('r', 25)
       .attr('fill', color)
+    return pointContainer
   }
+
 }
 
 const createRect = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity, edges: EDGE[], fieldX?: number,) => {

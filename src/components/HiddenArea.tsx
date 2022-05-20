@@ -1,11 +1,11 @@
 import React, { MutableRefObject, useEffect, useState } from "react";
 import { isShowLine } from "../d3_components/line";
-import { ShowButton } from "../type";
+import { D3CANVAS } from "../type";
 
 function HiddenArea({
   showButton,
 }: {
-  showButton: MutableRefObject<ShowButton>;
+  showButton: MutableRefObject<D3CANVAS>;
 }) {
   const [show, setShow] = useState<boolean>(true);
   useEffect(() => {
