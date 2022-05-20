@@ -101,3 +101,17 @@
   color: #fff;
   background-color: #5c4c9c;
 }
+
+.rect-field {
+  height: 38px;
+  width: 80px;
+  background-color: #bcb7fc;
+  border: 1px solid #a6a0ff;
+  /* writing-mode: vertical-rl; */
+  color: #3c34a9;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
