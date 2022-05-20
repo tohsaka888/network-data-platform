@@ -1,12 +1,19 @@
-import { Entity, D3CANVAS } from "../type"
+import { Entity, D3CANVAS, EDGE } from "../type"
+import { highLightLine } from "./line"
 
-const createPoint = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity) => {
+const createPoint = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity, edges: EDGE[]) => {
   if (entity) {
     const pointContainer = container
       ?.append('g')
       .attr('id', 'id' + entity.id || 'null')
       .attr('x', x)
       .attr('y', y)
+      .on('mouseover', function () {
+        highLightLine(container, edges, entity.id, true)
+      })
+      .on('mouseout', function () {
+        highLightLine(container, edges, entity.id, false)
+      })
     pointContainer
       ?.append('circle')
       .attr('cx', x)
@@ -16,7 +23,7 @@ const createPoint = (container: D3CANVAS, x: number, y: number, color: string, e
   }
 }
 
-const createRect = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity, fieldX?: number) => {
+const createRect = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity, edges: EDGE[], fieldX?: number,) => {
   if (entity) {
     const rectContainer = container
       ?.append('foreignObject')
@@ -26,6 +33,12 @@ const createRect = (container: D3CANVAS, x: number, y: number, color: string, en
       .attr('fieldX', fieldX || 0)
       .attr('width', '80px')
       .attr('height', '38px')
+      .on('mouseover', function () {
+        highLightLine(container, edges, entity.id, true)
+      })
+      .on('mouseout', function () {
+        highLightLine(container, edges, entity.id, false)
+      })
     if (entity.id.includes('asset_field')) {
       rectContainer?.classed('show', true)
     }
