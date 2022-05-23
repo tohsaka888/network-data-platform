@@ -58,6 +58,10 @@ const drawLine = (container: D3CANVAS, edges: EDGE[]) => {
       toX = +toX + 40
       toY = + toY + 38
       id = 'show'
+    } else if (item.fromId.includes('asset') && item.toId.includes('terminology')) {
+      toX = +toX + 40
+      toY = + toY + 38
+      id = 'show'
     }
     let midX = (+fromX + +toX) / 2
     let midY = (+fromY + +toY) / 2
