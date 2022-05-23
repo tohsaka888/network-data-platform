@@ -109,7 +109,7 @@ const highLightLine = (container: D3CANVAS, edges: EDGE[], id: string, isActive:
     if (edge.fromId === id || edge.toId === id) {
       const line = container?.select(`#id${edge.fromId + edge.toId}`);
       line?.attr("stroke", !isActive ? '#84ADF8' : '#F28500');
-      // line?.attr("stroke-width", isActive ? 5 : 1)
+      line?.attr("stroke-width", isActive ? 2 : 1)
     } else {
       const line = container?.select(`#id${edge.fromId + edge.toId}`);
       line?.attr("stroke", '#84ADF8');
