@@ -69,9 +69,9 @@ function DataCanvas({
 
   const startPoint = useMemo(
     () => ({
-      x: 0.3 * containerWidth,
+      x: 0.2 * containerWidth,
       y: 0.5 * containerHeight,
-      initX: 30,
+      initX: 20,
       initY: 50,
     }),
     [containerHeight, containerWidth]
@@ -399,7 +399,7 @@ function DataCanvas({
     unitY,
   ]);
 
-  const createCode = useCallback(
+  const createData = useCallback(
     (initX: number, initY: number) => {
       initX += (unitX * datameta.length) / 2;
       createPoint(
@@ -452,7 +452,8 @@ function DataCanvas({
     [containerHeight, containerWidth, datameta, edges, unitX]
   );
 
-  const createData = useCallback(
+
+  const createCode = useCallback(
     (initX: number, initY: number) => {
       initX += (unitX * codeInfo.length) / 2;
       createPoint(
@@ -505,16 +506,19 @@ function DataCanvas({
     [codeInfo, containerHeight, containerWidth, edges, unitX]
   );
 
+  // rerender时清空画布
   useEffect(() => {
     containerRef.current?.selectAll("*").remove();
   }, [containerHeight, containerWidth]);
 
+  // 创建画布
   useEffect(() => {
     if (canvasRef.current) {
       containerRef.current = createCanvas(canvasRef.current, canvasDragEvent);
     }
   }, [canvasDragEvent]);
 
+  // 画点
   useEffect(() => {
     if (centerPoint) {
       createPoint(
@@ -543,8 +547,8 @@ function DataCanvas({
       createTerminology();
       createModel();
       let prop = createTerm();
-      prop = createCode(prop.initX, prop.initY);
-      createData(prop.initX, prop.initY);
+      prop = createData(prop.initX, prop.initY);
+      createCode(prop.initX, prop.initY);
     }
   }, [
     createFields,
@@ -560,6 +564,7 @@ function DataCanvas({
     edges,
   ]);
 
+  // 画线
   useEffect(() => {
     drawLine(containerRef.current, edges);
   }, [edges, containerHeight, containerWidth]);
