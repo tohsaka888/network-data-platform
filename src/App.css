@@ -54,9 +54,12 @@
   color: #22602a;
   cursor: pointer;
   font-size: 12px;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  padding: 9px 0px;
 }
 
 .rect-green:hover {
@@ -73,9 +76,11 @@
   color: #0a4abe;
   cursor: pointer;
   font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  padding: 9px 0px;
 }
 
 .rect-blue:hover {
@@ -92,12 +97,14 @@
   color: #3c34a9;
   cursor: pointer;
   font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  padding: 9px 0px;
 }
 
-.rect-purple:hover {
+.rect-purple:hover {  
   color: #fff;
   background-color: #5c4c9c;
 }
@@ -114,4 +121,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
