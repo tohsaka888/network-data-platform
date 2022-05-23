@@ -574,7 +574,6 @@ function DataCanvas({
   }, []);
 
   useEffect(() => {
-    console.log(size);
     d3.selectAll("svg").select("g").attr("transform", `scale(${size})`);
   }, [size]);
   return (
@@ -593,7 +592,6 @@ function DataCanvas({
             }
           }}
           onWheel={(e) => {
-            console.log(e.deltaY);
             if (e.deltaY > 0) {
               setSize(size - 0.1);
             } else {
