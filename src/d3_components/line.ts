@@ -11,7 +11,20 @@ const drawArraw = () => {
     .attr('markerWidth', '10')
     .attr('markerHeight', '10')
     .attr('orient', 'auto')
-    .attr('fill', '#84ADF8')
+    // .attr('fill', 'black')
+    .attr('markerUnits', 'strokeWidth')
+    .append('path')
+    .attr('d', 'M0,-5L10,0L0,5')
+    d3.selectAll('svg').insert('defs', ':first-child')
+    .append('marker')
+    .attr('id', 'arrow-active')
+    .attr('viewBox', '0 -5 10 15')
+    .attr('refX', '0')
+    .attr('refY', '0')
+    .attr('markerWidth', '10')
+    .attr('markerHeight', '10')
+    .attr('orient', 'auto')
+    .attr('fill', '#ED7D0C')
     .attr('markerUnits', 'strokeWidth')
     .append('path')
     .attr('d', 'M0,-5L10,0L0,5')
@@ -114,6 +127,7 @@ const highLightLine = (container: D3CANVAS, edges: EDGE[], id: string, isActive:
       const line = container?.select(`#id${edge.fromId + edge.toId}`);
       line?.attr("stroke", !isActive ? '#84ADF8' : '#F28500');
       line?.attr("stroke-width", isActive ? 1.5 : 1)
+      line?.attr("marker-mid", isActive ? 'url(#arrow-active)' : 'url(#arrow)')
     } else {
       const line = container?.select(`#id${edge.fromId + edge.toId}`);
       line?.attr("stroke", '#84ADF8');
