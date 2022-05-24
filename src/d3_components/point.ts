@@ -2,15 +2,21 @@ import { Entity, D3CANVAS, EDGE } from "../type"
 import { highLightLine } from "./line"
 
 const animtedCircle = (pointerContainer: d3.Selection<SVGGElement, unknown, null, undefined> | undefined, isActive: boolean = false, isStop: boolean = false) => {
+  const color = pointerContainer?.select('circle')?.attr('fill')
+  let outerColor = color === '#3276F3' ? '#B6D0FF' : '#DEC0A2'
   if (pointerContainer) {
-    pointerContainer.selectAll('circle').transition().duration(1000).attr('stroke', isActive ? 'red' : 'transparent').on('end', () => {
-      // eslint-disable-next-line no-param-reassign
-      isActive = !isActive
-      if (!isStop) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        animtedCircle(pointerContainer, isActive)
-      }
-    });
+    pointerContainer.selectAll('circle')
+      .transition().duration(1000)
+      .attr('stroke', isActive ? outerColor : 'transparent')
+      .attr('r', isActive ? '27px' : '25px')
+      .on('end', () => {
+        // eslint-disable-next-line no-param-reassign
+        isActive = !isActive
+        if (!isStop) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          animtedCircle(pointerContainer, isActive)
+        }
+      });
   }
 }
 
@@ -42,15 +48,15 @@ const createPoint = (container: D3CANVAS, x: number, y: number, color: string, e
       }
     }
     pointContainer?.append('circle').attr('cx', x).attr('cy', y).attr('r', 25)
-    .attr('fill', color)
-    .attr('stroke', 'transparent')
-    .attr('stroke-width', '10px')
-    .on('mouseover', function () {
-      animtedCircle(pointContainer, true)
-    })
-    .on('mouseout', function () {
-      animtedCircle(pointContainer, false, true)
-    });
+      .attr('fill', color)
+      .attr('stroke', 'transparent')
+      .attr('stroke-width', '5px')
+      .on('mouseover', function () {
+        animtedCircle(pointContainer, true)
+      })
+      .on('mouseout', function () {
+        animtedCircle(pointContainer, false, true)
+      });
     return pointContainer
   }
 
