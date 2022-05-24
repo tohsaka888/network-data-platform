@@ -1,6 +1,19 @@
 import { Entity, D3CANVAS, EDGE } from "../type"
 import { highLightLine } from "./line"
 
+const animtedCircle = (pointerContainer: d3.Selection<SVGGElement, unknown, null, undefined> | undefined, isActive: boolean = false, isStop: boolean = false) => {
+  if (pointerContainer) {
+    pointerContainer.selectAll('circle').transition().duration(1000).attr('stroke', isActive ? 'red' : 'transparent').on('end', () => {
+      // eslint-disable-next-line no-param-reassign
+      isActive = !isActive
+      if (!isStop) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        animtedCircle(pointerContainer, isActive)
+      }
+    });
+  }
+}
+
 const createPoint = (container: D3CANVAS, x: number, y: number, color: string, entity: Entity, edges: EDGE[]) => {
   if (entity) {
     const pointContainer = container
@@ -28,12 +41,16 @@ const createPoint = (container: D3CANVAS, x: number, y: number, color: string, e
         pointContainer?.classed('show', true)
       }
     }
-    pointContainer
-      ?.append('circle')
-      .attr('cx', x)
-      .attr('cy', y)
-      .attr('r', 25)
-      .attr('fill', color)
+    pointContainer?.append('circle').attr('cx', x).attr('cy', y).attr('r', 25)
+    .attr('fill', color)
+    .attr('stroke', 'transparent')
+    .attr('stroke-width', '10px')
+    .on('mouseover', function () {
+      animtedCircle(pointContainer, true)
+    })
+    .on('mouseout', function () {
+      animtedCircle(pointContainer, false, true)
+    });
     return pointContainer
   }
 
@@ -81,7 +98,7 @@ const createRect = (container: D3CANVAS, x: number, y: number, color: string, en
   }
 }
 
-const createPointInfo = (container: D3CANVAS, x: number, y: number, entity: Entity, color?: string) => {
+const createPointInfo = (container: D3CANVAS, x: number, y: number, entity: Entity, color?: string, isLabel: boolean = false) => {
   if (entity) {
     const text = container
       ?.append('text')
@@ -94,7 +111,7 @@ const createPointInfo = (container: D3CANVAS, x: number, y: number, entity: Enti
       .attr('alignment-baseline', 'central')
       .attr('dominant-baseline', 'middle')
       .attr('fill', color || '#fff')
-      .text(entity.name)
+      .text(isLabel ? entity.name : entity.label)
     if (entity.id) {
       if (entity.id.includes('terminology')) {
         text?.classed('show', true)

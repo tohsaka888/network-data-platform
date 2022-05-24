@@ -85,8 +85,8 @@ function DataCanvas({
       let x = (initX / 100) * containerWidth;
       let y = (initY / 100) * containerHeight;
       createPoint(containerRef.current, x, y, "#3276F3", item, edges);
-      if (item.name.length > 4) {
-        item.name = item.name.slice(0, 3) + "...";
+      if (item.label.length > 4) {
+        item.label = item.label.slice(0, 3) + "...";
       }
       createPointInfo(containerRef.current, x, y, item);
       createPointInfo(
@@ -94,7 +94,8 @@ function DataCanvas({
         (initX / 100) * containerWidth,
         (initY / 100) * containerHeight + 35,
         item,
-        "#000"
+        "#000",
+        true
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight;
@@ -113,7 +114,7 @@ function DataCanvas({
       {
         name: "字段",
         id: "field",
-        label: "",
+        label: "字段",
       },
       edges
     );
@@ -124,7 +125,7 @@ function DataCanvas({
       {
         name: "字段",
         id: "field",
-        label: "",
+        label: "字段",
       }
     );
     createPointInfo(
@@ -145,7 +146,7 @@ function DataCanvas({
         y: startPoint.y,
         label: "",
         name: "",
-        id: "",
+        id: "assets",
       },
       [
         {
@@ -315,7 +316,8 @@ function DataCanvas({
         (initX / 100) * containerWidth,
         (initY / 100) * containerHeight + 35,
         item,
-        "#000"
+        "#000",
+        true
       );
       item.x = (initX / 100) * containerWidth;
       item.y = (initY / 100) * containerHeight;
@@ -347,7 +349,7 @@ function DataCanvas({
       "#3276F3",
       {
         name: "术语",
-        id: "model",
+        id: "term",
         label: "术语",
       },
       edges
@@ -360,7 +362,7 @@ function DataCanvas({
         y: (initY / 100) * containerHeight,
         label: "",
         name: "",
-        id: "",
+        id: "term",
       },
       terminology
     );
@@ -370,7 +372,7 @@ function DataCanvas({
       (initY / 100) * containerHeight,
       {
         name: "术语",
-        id: "model",
+        id: "term",
         label: "术语",
       }
     );
@@ -540,7 +542,8 @@ function DataCanvas({
         startPoint.x,
         startPoint.y + 35,
         centerPoint[0],
-        "#000"
+        "#000",
+        true
       );
       createDefaultPoints();
       createFields();
